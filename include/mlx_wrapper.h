@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 12:09:17 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/08/07 10:19:26 by jaubry--         ###   ########lyon.fr   */
+/*   Updated: 2025/08/07 09:33:55 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,11 @@ t_mlx	*init_mlx(const int width, const int height, char *title);
 void	kill_img(t_xvar *mlx, t_img_data *img);
 
 //drawing functions
-void		ft_mlx_pixel_put(t_img_data *img, const t_vec2i pos,
-				const int color);
+void	ft_mlx_pixel_put(t_img_data *img, const t_vec2i pos,
+			const int color);
 
-void		ft_mlx_safe_pixel_put(t_img_data *img, const t_vec2i pos,
-				const int color);
+void	ft_mlx_safe_pixel_put(t_img_data *img, const t_vec2i pos,
+			const int color);
 
 typedef struct s_line
 {
@@ -69,20 +69,19 @@ typedef struct s_line
 	int				e2;
 }					t_line;
 
-void		ft_mlx_line_put(t_img_data *img, t_vec2i a, t_vec2i b,
-				const int color);
+void	ft_mlx_line_put(t_img_data *img, t_vec2i a, t_vec2i b,
+			const int color);
 
-void		ft_mlx_horizontal_line(t_img_data *img, const int xpt[2],
-				const int y, const int color);
+void	ft_mlx_horizontal_line(t_img_data *img, const int xpt[2],
+			const int y, const int color);
 
-void		ft_mlx_batch_put(t_img_data *img, const t_vec2i pos,
+void	ft_mlx_batch_put(t_img_data *img, const t_vec2i pos,
 			const t_vec2i size, const int color);
 
-void		ft_mlx_circle_put(t_img_data *img, const t_vec2i center,
-				const int radius, const int color);
+void	ft_mlx_circle_put(t_img_data *img, const t_vec2i center,
+			const int radius, const int color);
 
-void		ft_mlx_draw_quadratic_curve(t_img_data *img,
-				const t_vec2i *pts, const int color);
-
+void	ft_mlx_draw_quadratic_curve(t_img_data *img,
+			const t_vec2i *pts, const int color);
 
 #endif // MLX_WRAPPER_H

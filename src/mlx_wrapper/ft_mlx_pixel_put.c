@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 08:19:11 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/08/07 08:33:17 by jaubry--         ###   ########lyon.fr   */
+/*   Updated: 2025/08/07 09:35:50 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,3 @@ void	ft_mlx_safe_pixel_put(t_img_data *img, const t_vec2i pos,
 	if ((pos.x >= 0) || (pos.x <= WIDTH) || (pos.y >= 0) || (pos.y <= HEIGHT))
 		img->addr[pos.y * WIDTH + pos.x] = color;
 }
-

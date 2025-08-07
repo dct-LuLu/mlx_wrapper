@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 15:19:25 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/08/07 09:09:54 by jaubry--         ###   ########lyon.fr   */
+/*   Updated: 2025/08/07 09:35:29 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,12 @@
 void	ft_mlx_draw_quadratic_curve(t_img_data *img, const t_vec2i *pts,
 			const int color)
 {
-	const float	curve_length = quad_curve_length(pts[START], pts[CTRL], pts[END]);
-	float	t;
-	float	step;
-	t_vec2i	current;
-	t_vec2i	previous;
+	const float	curve_length = quad_curve_length(
+			pts[START], pts[CTRL], pts[END]);
+	float		t;
+	float		step;
+	t_vec2i		current;
+	t_vec2i		previous;
 
 	step = 2.0f / (curve_length + 1.0f);
 	if (step > MAX_STEP)
