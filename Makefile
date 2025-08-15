@@ -6,7 +6,7 @@
 #    By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/11 10:16:04 by jaubry--          #+#    #+#              #
-#    Updated: 2025/08/15 22:32:53 by jaubry--         ###   ########.fr        #
+#    Updated: 2025/08/15 23:12:33 by jaubry--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -113,14 +113,14 @@ help:
 print-% : ; $(info $* is a $(flavor $*) variable set to [$($*)]) @true
 
 clean:
-	@$(MAKE) -s -C $(LIBFTDIR) clean
+	@$(MAKE) -s -C $(LIBFTDIR) clean ROOTDIR=../..
 	$(call rm-obj-msg)
 	@rm -rf $(OBJDIR) $(DEPDIR)
 
 fclean:
 	$(call mlx-clean-msg)
 	@$(MAKE) -s -C $(MLXDIR) clean $(SILENCE)
-	@$(MAKE) -s -C $(LIBFTDIR) fclean
+	@$(MAKE) -s -C $(LIBFTDIR) fclean ROOTDIR=../..
 	$(call rm-obj-msg)
 	@rm -rf $(OBJDIR) $(DEPDIR)
 	$(call rm-lib-msg)
