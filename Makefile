@@ -6,47 +6,52 @@
 #    By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/11 10:16:04 by jaubry--          #+#    #+#              #
-#    Updated: 2025/08/07 09:36:45 by jaubry--         ###   ########lyon.fr    #
+#    Updated: 2025/08/15 23:11:07 by jaubry--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SHELL := /bin/bash
-
-# Print utils
-include ../../colors.mk
+ROOTDIR			?= .
+include $(ROOTDIR)/mkidir/make_utils.mk
 
 # Variables
-DEBUG		= $(if $(filter debug,$(MAKECMDGOALS)),1,0)
-WIDTH		= 500
-HEIGHT		= 500
+WIDTH			= 500
+HEIGHT			= 500
 
 # Directories
-CDIR		= mlx_wrapper
-SRCDIR		= src
-INCDIR		= include
-OBJDIR		= .obj
-DEPDIR		= .dep
-LIBFTDIR	= ../libft
-MLXDIR		= ../minilibx-linux
+CDIR			= mlx_wrapper
+SRCDIR			= src
+INCDIR			= include
+OBJDIR			= .obj
+DEPDIR			= .dep
+
+LIBFTDIR		= $(LIBDIR)/libft
+MLXDIR			= $(LIBDIR)/minilibx-linux
 
 # Output
-NAME		= libmlx-wrapper.a
-LIBFT		= $(LIBFTDIR)/libft.a
-MLX			= $(MLXDIR)/libmlx.a
+NAME			= libmlx-wrapper.a
+LIBFT			= $(LIBFTDIR)/libft.a
+MLX				= $(MLXDIR)/libmlx.a
 
 # Compiler and flags
-CC			= cc
-CFLAGS		= -Wall -Wextra -Werror \
-			  $(if $(filter 1,$(DEBUG)),-g3) -D DEBUG=$(DEBUG) \
-			  -D WIDTH=$(WIDTH) -D HEIGHT=$(HEIGHT) \
-			  -std=gnu11
-DFLAGS		= -MMD -MP -MF $(DEPDIR)/$*.d
-IFLAGS		= -I$(INCDIR) -I$(LIBFTDIR)/include -I$(MLXDIR)
-CF			= $(CC) $(CFLAGS) $(IFLAGS) $(DFLAGS)
+CC				= cc
 
-AR          = $(if $(findstring -flto,$(CC)),llvm-ar-12,ar) $(SILENCE)
-ARFLAGS		= rcs
-RANLIB      = $(if $(findstring -flto,$(CC)),llvm-ranlib-12,ranlib) $(SILENCE)
+CFLAGS			= -Wall -Wextra -Werror \
+				  -std=gnu11
+
+DFLAGS			= -MMD -MP -MF $(DEPDIR)/$*.d
+
+IFLAGS			= -I$(INCDIR) -I$(LIBFTDIR)/include -I$(MLXDIR)
+
+VFLAGS			= -D DEBUG=$(DEBUG) \
+				  -D WIDTH=$(WIDTH) \
+				  -D HEIGHT=$(HEIGHT)
+
+CLFAGS			+= $(DEBUG_FLAGS) $(FFLAGS) $(VFLAGS)
+CF				= $(CC) $(CFLAGS) $(IFLAGS)
+
+AR				= $(if $(findstring -flto,$(CC)),llvm-ar,ar) $(SILENCE)
+ARFLAGS			= rcs
+RANLIB			= $(if $(findstring -flto,$(CC)),llvm-ranlib,ranlib) $(SILENCE)
 
 # VPATH
 vpath %.h $(INCDIR) $(LIBFTDIR)/$(INCDIR) $(MLXDIR)
@@ -54,34 +59,36 @@ vpath %.o $(OBJDIR) $(LIBFTDIR)/$(OBJDIR)
 vpath %.d $(DEPDIR) $(LIBFTDIR)/$(DEPDIR)
 
 # Sources
-MKS			= mlx_wrapper/mlx_wrapper.mk
+MKS				= mlx_wrapper/mlx_wrapper.mk
 
 include $(addprefix $(SRCDIR)/, $(MKS))
 
-OBJS		= $(addprefix $(OBJDIR)/, $(notdir $(SRCS:.c=.o)))
-DEPS		= $(addprefix $(DEPDIR)/, $(notdir $(SRCS:.c=.d)))
+OBJS			= $(addprefix $(OBJDIR)/, $(notdir $(SRCS:.c=.o)))
+DEPS			= $(addprefix $(DEPDIR)/, $(notdir $(SRCS:.c=.d)))
 
-all: $(NAME)
-
-debug: $(NAME)
+all:	$(NAME)
+fast:	$(NAME)
+debug:	$(NAME)
 
 $(NAME): $(MLX) $(LIBFT) $(OBJS)
 	$(call ar-msg)
 	@$(AR) $(ARFLAGS) $@ $^
-	@$(if $(findstring -flto,$(CC)),$(RANLIB) $@,)
+ifeq ($(FAST),1)
+	@$(RANLIB) $@
+endif
 	$(call ar-finish-msg)
 
 $(LIBFT):
-	@$(MAKE) -s -C $(LIBFTDIR) $(if $(filter 1,$(DEBUG)),debug)
+	@$(MAKE) -s -C $(LIBFTDIR) $(RULE) $(MAKEFLAGS) ROOTDIR=../..
 
 $(MLX):
 	$(call mlx-build-msg)
-	@$(MAKE) -s -C $(MLXDIR) $(MUTE)
+	@$(MAKE) -s -C $(MLXDIR) CC="gcc-14 $(if $(filter 1,$(FAST)),$(OFLAGS))" $(MUTE)
 	$(call mlx-finish-msg)
 
 $(OBJDIR)/%.o: %.c | buildmsg $(OBJDIR) $(DEPDIR)
 	$(call lib-compile-obj-msg)
-	@$(CF) -c $< -o $@
+	@$(CF) $(DFLAGS) -c $< -o $@
 
 $(OBJDIR) $(DEPDIR):
 	$(call create-dir-msg)
@@ -106,14 +113,14 @@ help:
 print-% : ; $(info $* is a $(flavor $*) variable set to [$($*)]) @true
 
 clean:
-	@$(MAKE) -s -C $(LIBFTDIR) clean
+	@$(MAKE) -s -C $(LIBFTDIR) clean ROOTDIR=../..
 	$(call rm-obj-msg)
 	@rm -rf $(OBJDIR) $(DEPDIR)
 
 fclean:
 	$(call mlx-clean-msg)
 	@$(MAKE) -s -C $(MLXDIR) clean $(SILENCE)
-	@$(MAKE) -s -C $(LIBFTDIR) fclean
+	@$(MAKE) -s -C $(LIBFTDIR) fclean ROOTDIR=../..
 	$(call rm-obj-msg)
 	@rm -rf $(OBJDIR) $(DEPDIR)
 	$(call rm-lib-msg)
