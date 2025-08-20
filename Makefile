@@ -6,7 +6,7 @@
 #    By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/11 10:16:04 by jaubry--          #+#    #+#              #
-#    Updated: 2025/08/20 19:52:21 by jaubry--         ###   ########.fr        #
+#    Updated: 2025/08/20 20:09:34 by jaubry--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,9 +49,9 @@ VFLAGS		= -D DEBUG=$(DEBUG) \
 CLFAGS		+= $(DEBUG_FLAGS) $(FFLAGS) $(VFLAGS)
 CF			= $(CC) $(CFLAGS) $(IFLAGS)
 
-AR          = $(if $(findstring -flto,$(CC)),llvm-ar,ar) $(SILENCE)
+AR          = $(if $(findstring -flto,$(CC)),$(FAST_AR),$(STD_AR)) $(SILENCE)
 ARFLAGS		= rcs
-RANLIB      = $(if $(findstring -flto,$(CC)),llvm-ranlib,ranlib) $(SILENCE)
+RANLIB      = $(if $(findstring -flto,$(CC)),$(FAST_RANLIB),$(STD_RANLIB)) $(SILENCE)
 
 # VPATH
 vpath %.h $(INCDIR) $(LIBFTDIR)/$(INCDIR) $(MLXDIR)
@@ -83,7 +83,7 @@ $(LIBFT):
 
 $(MLX):
 	$(call mlx-build-msg)
-	@$(MAKE) -s -C $(MLXDIR) CC="gcc-12 $(if $(filter 1,$(FAST)),$(OFLAGS))" $(MUTE)
+	@$(MAKE) -s -C $(MLXDIR) CC="$(MLX_GCC) $(if $(filter 1,$(FAST)),$(OFLAGS))" $(MUTE)
 	$(call mlx-finish-msg)
 
 $(OBJDIR)/%.o: %.c | buildmsg $(OBJDIR) $(DEPDIR)
