@@ -6,7 +6,7 @@
 #    By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/11 10:16:04 by jaubry--          #+#    #+#              #
-#    Updated: 2025/08/16 00:08:22 by jaubry--         ###   ########.fr        #
+#    Updated: 2025/08/20 19:52:21 by jaubry--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,7 +83,7 @@ $(LIBFT):
 
 $(MLX):
 	$(call mlx-build-msg)
-	@$(MAKE) -s -C $(MLXDIR) CC="gcc-14 $(if $(filter 1,$(FAST)),$(OFLAGS))" $(MUTE)
+	@$(MAKE) -s -C $(MLXDIR) CC="gcc-12 $(if $(filter 1,$(FAST)),$(OFLAGS))" $(MUTE)
 	$(call mlx-finish-msg)
 
 $(OBJDIR)/%.o: %.c | buildmsg $(OBJDIR) $(DEPDIR)
