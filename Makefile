@@ -6,7 +6,7 @@
 #    By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/11 10:16:04 by jaubry--          #+#    #+#              #
-#    Updated: 2025/08/20 21:11:19 by jaubry--         ###   ########.fr        #
+#    Updated: 2025/08/21 19:17:58 by jaubry--         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,11 +42,16 @@ DFLAGS		= -MMD -MP -MF $(DEPDIR)/$*.d
 
 IFLAGS		= -I$(INCDIR) -I$(LIBFTDIR)/include -I$(MLXDIR)
 
-VFLAGS		= -D DEBUG=$(DEBUG) \
-			  -D WIDTH=$(WIDTH) \
-			  -D HEIGHT=$(HEIGHT)
+VARS		= DEBUG=$(DEBUG) \
+			  WIDTH=$(WIDTH) \
+			  HEIGHT=$(HEIGHT) \
+			  PERF=$(PERF) \
+			  FULLSCREEN=$(FULLSCREEN) \
+			  RESIZEABLE=$(RESIZEABLE) \
+			  WINDOWLESS=$(WINDOWLESS)
+VFLAGS		= $(addprefix -D ,$(VARS))
 
-CLFAGS		+= $(DEBUG_FLAGS) $(FFLAGS) $(VFLAGS)
+CFLAGS		+= $(DEBUG_FLAGS) $(FFLAGS) $(VFLAGS)
 CF			= $(CC) $(CFLAGS) $(IFLAGS)
 
 AR          = $(if $(findstring -flto,$(FFLAGS)),$(FAST_AR),$(STD_AR))
@@ -59,9 +64,16 @@ vpath %.o $(OBJDIR) $(LIBFTDIR)/$(OBJDIR)
 vpath %.d $(DEPDIR) $(LIBFTDIR)/$(DEPDIR)
 
 # Sources
-MKS			= mlx_wrapper/mlx_wrapper.mk
+MKS			= draw/draw.mk \
+			  primitives/primitives.mk
 
 include $(addprefix $(SRCDIR)/, $(MKS))
+
+ifneq (,$(filter 1 1,$(RESIZEABLE) $(FULLSCREEN)))
+	SRCS	+= $(MLXDIR)/mlx_ext_randr.c
+	CFLAGS	+= -Wno-error=sign-compare -Wno-error=return-type
+	vpath %.c $(MLXDIR)
+endif
 
 OBJS		= $(addprefix $(OBJDIR)/, $(notdir $(SRCS:.c=.o)))
 DEPS		= $(addprefix $(DEPDIR)/, $(notdir $(SRCS:.c=.d)))
@@ -79,7 +91,7 @@ endif
 	$(call ar-finish-msg)
 
 $(LIBFT):
-	@$(MAKE) -s -C $(LIBFTDIR) $(RULE) $(MAKEFLAGS) ROOTDIR=../..
+	@$(MAKE) -s -C $(LIBFTDIR) $(RULE) $(VARS) ROOTDIR=../..
 
 $(MLX):
 	$(call mlx-build-msg)
