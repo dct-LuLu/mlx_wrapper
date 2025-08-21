@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 12:09:17 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/08/21 18:58:15 by jaubry--         ###   ########lyon.fr   */
+/*   Updated: 2025/08/21 20:02:24 by jaubry--         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,9 @@ typedef struct s_mlx
 
 t_mlx	*init_mlx(const int width, const int height, char *title);
 
-void	kill_img(t_xvar *mlx, t_img_data *img);
+void	kill_mlx(t_mlx *mlx);
 
-void start_mlx_loop(t_mlx *mlx, int (*loop)(), void *data);
+void 	start_mlx_loop(t_mlx *mlx, int (*loop)(), void *data);
 
 //drawing functions
 void	ft_mlx_pixel_put(t_img_data *img, const t_vec2i pos,

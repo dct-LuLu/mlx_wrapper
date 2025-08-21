@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 12:11:45 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/08/07 08:27:53 by jaubry--         ###   ########lyon.fr   */
+/*   Updated: 2025/08/21 20:10:53 by jaubry--         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*
 	Function that kills the image
 */
-void	kill_img(t_xvar *mlx, t_img_data *img)
+static void	kill_img(t_xvar *mlx, t_img_data *img)
 {
 	if (img->img)
 	{
@@ -27,4 +27,28 @@ void	kill_img(t_xvar *mlx, t_img_data *img)
 	img->byte_depth = 0;
 	img->width = 0;
 	img->height = 0;
+}
+
+/*
+	Function that kills the mlx and free everything
+*/
+void	kill_mlx(t_mlx *mlx)
+{
+	if (mlx)
+	{
+		if (mlx->img.img)
+			kill_img(mlx->mlx, &mlx->img);
+		if (mlx->win)
+		{
+			mlx_destroy_window(mlx->mlx, mlx->win);
+			mlx->win = NULL;
+		}
+		if (mlx->mlx)
+		{
+			mlx_destroy_display(mlx->mlx);
+			free(mlx->mlx);
+			mlx->mlx = NULL;
+		}
+		free(mlx);
+	}
 }
