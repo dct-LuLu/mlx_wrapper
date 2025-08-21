@@ -6,12 +6,12 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 08:26:41 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/08/07 09:36:32 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/08/21 18:37:32 by jaubry--         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mlx_wrapper.h"
-
+#include "mlx.h"
 #include <stdio.h>
 /*
 	Function to init image with given size, will init it's metadata too.
@@ -56,5 +56,10 @@ t_mlx	*init_mlx(const int width, const int height, char *title)
 	}
 	mlx->origin = vec2i(0, 0);
 	mlx->size = vec2i(width, width);
+	mlx->fullscreen = FULLSCREEN;
+	if (WINDOWLESS || FULLSCREEN)
+		ft_disable_decorations(mlx->mlx->display, mlx->win->window);
+	if (FULLSCREEN)
+		mlx_ext_fullscreen(mlx->mlx, mlx->win, 1);
 	return (mlx);
 }
