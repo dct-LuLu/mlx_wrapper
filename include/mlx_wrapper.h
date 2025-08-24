@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 12:09:17 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/08/21 20:02:24 by jaubry--         ###   ########lyon.fr   */
+/*   Updated: 2025/08/24 05:01:42 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,10 @@ typedef struct s_mlx
 	t_img_data		img;
 	t_vec2i			origin;
 	t_vec2i			size;
+	t_vec2i			half_size; //enforce 2 multiple for size
 	bool			fullscreen;
 	size_t			frame_time;
-	size_t			delta_time;
+	float			delta_time;
 	size_t			total_time;
 	size_t			generation;
 	size_t			fps;
