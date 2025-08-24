@@ -16,6 +16,7 @@ static void	print_perfs(t_mlx *mlx)
 		printf("\033[H\033[J");
 	printf("[FRAME %zu]\nFrame time:\t%zu μs\n", mlx->generation, mlx->frame_time);
 	printf("Average:\t%zu μs\n\n", (mlx->total_time / mlx->generation));
+	printf("Delta time:\t%f s\n\n", mlx->delta_time);
 }
 
 static void	compute_fps(t_mlx *mlx)
@@ -44,7 +45,7 @@ static int	loop_wrapper(t_loop_wrap *loop_data)
 
 	loop_data->mlx->frame_time = (stop.tv_sec - start.tv_sec) * 1000000
 		+ stop.tv_usec - start.tv_usec;
-	loop_data->mlx->delta_time = loop_data->mlx->frame_time;
+	loop_data->mlx->delta_time = loop_data->mlx->frame_time / 1000000.0f;
 	loop_data->mlx->total_time += loop_data->mlx->frame_time;
 	loop_data->mlx->generation++;
 	compute_fps(loop_data->mlx);

@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 08:26:41 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/08/21 18:37:32 by jaubry--         ###   ########lyon.fr   */
+/*   Updated: 2025/08/24 05:01:33 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ t_mlx	*init_mlx(const int width, const int height, char *title)
 		return (NULL);
 	}
 	mlx->origin = vec2i(0, 0);
-	mlx->size = vec2i(width, width);
+	mlx->size = vec2i(width, height);
+	mlx->half_size = vec2i(width / 2, height / 2);
 	mlx->fullscreen = FULLSCREEN;
 	if (WINDOWLESS || FULLSCREEN)
 		ft_disable_decorations(mlx->mlx->display, mlx->win->window);
