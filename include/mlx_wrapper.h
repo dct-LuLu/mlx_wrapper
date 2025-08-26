@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 12:09:17 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/08/24 05:01:42 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/08/26 19:40:23 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,22 @@ typedef struct s_img_data
 	int				height;//to change
 }					t_img_data;
 
+/*		 Future implementation
+typedef struct s_win
+{
+	t_win_list		*win;
+	t_img_daa		img;
+	t_vec2i			origin;
+	t_vec2i			size;
+	t_vec2i			half_size;
+	bool			fullscreen;
+}					t_win;
+*/
+
 typedef struct s_mlx
 {
 	t_xvar			*mlx;
+//	t_win			*wins;
 	t_win_list		*win;
 	t_img_data		img;
 	t_vec2i			origin;
