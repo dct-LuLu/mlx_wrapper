@@ -6,13 +6,15 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 08:26:41 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/08/07 09:36:32 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/08/28 06:13:25 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mlx_wrapper.h"
-
+#include "mlx.h"
 #include <stdio.h>
+
+
 /*
 	Function to init image with given size, will init it's metadata too.
 */
@@ -30,6 +32,8 @@ static inline int	init_img_data(t_img_data *img_data, t_xvar *mlx,
 	return (0);
 }
 
+int		setup_key_input(t_mlx *mlx_data);
+
 t_mlx	*init_mlx(const int width, const int height, char *title)
 {
 	t_mlx		*mlx;
@@ -39,22 +43,21 @@ t_mlx	*init_mlx(const int width, const int height, char *title)
 		return (NULL);
 	mlx->mlx = mlx_init();
 	if (!mlx->mlx)
-		return (free(mlx), NULL);
+		return (kill_mlx(mlx), NULL);
 	mlx->win = mlx_new_window(mlx->mlx, width, height, title);
 	if (!mlx->win)
-	{
-		mlx_destroy_display(mlx->mlx);
-		free(mlx);
-		return (NULL);
-	}
+		return (kill_mlx(mlx), NULL);
 	if (init_img_data(&(mlx->img), mlx->mlx, width, height) != 0)
-	{
-		mlx_destroy_window(mlx->mlx, mlx->win);
-		mlx_destroy_display(mlx->mlx);
-		free(mlx);
-		return (NULL);
-	}
+		return (kill_mlx(mlx), NULL);
 	mlx->origin = vec2i(0, 0);
-	mlx->size = vec2i(width, width);
+	mlx->size = vec2i(width, height);
+	mlx->half_size = vec2i(width / 2, height / 2);
+	mlx->fullscreen = FULLSCREEN;
+	if (WINDOWLESS || FULLSCREEN)
+		ft_disable_decorations(mlx->mlx->display, mlx->win->window);
+	if (FULLSCREEN)
+		mlx_ext_fullscreen(mlx->mlx, mlx->win, 1);
+	if (setup_key_input(mlx) == -1)
+		return (kill_mlx(mlx), NULL);
 	return (mlx);
 }

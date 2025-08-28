@@ -6,52 +6,71 @@
 #    By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/11 10:16:04 by jaubry--          #+#    #+#              #
-#    Updated: 2025/08/20 19:37:06 by jaubry--         ###   ########.fr        #
+#    Updated: 2025/08/28 05:38:40 by jaubry--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-ROOTDIR			?= .
+ROOTDIR		?= .
 include $(ROOTDIR)/mkidir/make_utils.mk
 
 # Variables
-WIDTH			= 500
-HEIGHT			= 500
+WINDOWLESS	= 0
+FULLSCREEN	= 0
+RESIZEABLE	= 0
+ifeq ($(FULLSCREEN), 1)
+WIDTH		= 1920
+HEIGHT		= 1080
+else
+WIDTH		= 500
+HEIGHT		= 500
+endif
+PERF		= 0
 
 # Directories
-CDIR			= mlx_wrapper
-SRCDIR			= src
-INCDIR			= include
-OBJDIR			= .obj
-DEPDIR			= .dep
+CDIR		= mlx_wrapper
+SRCDIR		= src
+INCDIR		= include
+OBJDIR		= .obj
+DEPDIR		= .dep
 
-LIBFTDIR		= $(LIBDIR)/libft
-MLXDIR			= $(LIBDIR)/minilibx-linux
+LIBFTDIR	= $(LIBDIR)/libft
+MLXDIR		= $(LIBDIR)/minilibx-linux
 
 # Output
-NAME			= libmlx-wrapper.a
-LIBFT			= $(LIBFTDIR)/libft.a
-MLX				= $(MLXDIR)/libmlx.a
+NAME		= libmlx-wrapper.a
+LIBFT		= $(LIBFTDIR)/libft.a
+MLX			= $(MLXDIR)/libmlx.a
+ARCHIVES	= $(MLX) $(LIBFT)
 
 # Compiler and flags
-CC				= cc
+CC			= cc
 
-CFLAGS			= -Wall -Wextra -Werror \
-				  -std=gnu11
+CFLAGS		= -Wall -Wextra -Werror \
+			  -std=gnu11
 
-DFLAGS			= -MMD -MP -MF $(DEPDIR)/$*.d
+DFLAGS		= -MMD -MP -MF $(DEPDIR)/$*.d
 
-IFLAGS			= -I$(INCDIR) -I$(LIBFTDIR)/include -I$(MLXDIR)
+IFLAGS		= -I$(INCDIR) -I$(LIBFTDIR)/include -I$(MLXDIR)
 
-VFLAGS			= -D DEBUG=$(DEBUG) \
-				  -D WIDTH=$(WIDTH) \
-				  -D HEIGHT=$(HEIGHT)
+LFLAGS		= -L$(MLXDIR) -L$(LIBFTDIR) \
+			  -lmlx -lft \
+			  -lXext -lX11 -lXrandr -lm
 
-CLFAGS			+= $(DEBUG_FLAGS) $(FFLAGS) $(VFLAGS)
-CF				= $(CC) $(CFLAGS) $(IFLAGS)
+VARS		= DEBUG=$(DEBUG) \
+			  WIDTH=$(WIDTH) \
+			  HEIGHT=$(HEIGHT) \
+			  PERF=$(PERF) \
+			  FULLSCREEN=$(FULLSCREEN) \
+			  RESIZEABLE=$(RESIZEABLE) \
+			  WINDOWLESS=$(WINDOWLESS)
+VFLAGS		= $(addprefix -D ,$(VARS))
 
-AR				= $(if $(findstring -flto,$(CC)),llvm-ar,ar) $(SILENCE)
-ARFLAGS			= rcs
-RANLIB			= $(if $(findstring -flto,$(CC)),llvm-ranlib,ranlib) $(SILENCE)
+CFLAGS		+= $(DEBUG_FLAGS) $(FFLAGS) $(VFLAGS)
+CF			= $(CC) $(CFLAGS) $(IFLAGS)
+
+AR          = $(if $(findstring -flto,$(FFLAGS)),$(FAST_AR),$(STD_AR))
+ARFLAGS		= rcs
+RANLIB      = $(if $(findstring -flto,$(FFLAGS)),$(FAST_RANLIB),$(STD_RANLIB))
 
 # VPATH
 vpath %.h $(INCDIR) $(LIBFTDIR)/$(INCDIR) $(MLXDIR)
@@ -59,31 +78,45 @@ vpath %.o $(OBJDIR) $(LIBFTDIR)/$(OBJDIR)
 vpath %.d $(DEPDIR) $(LIBFTDIR)/$(DEPDIR)
 
 # Sources
-MKS				= mlx_wrapper/mlx_wrapper.mk
+MKS			= draw/draw.mk \
+			  primitives/primitives.mk \
+			  keys/keys.mk
 
 include $(addprefix $(SRCDIR)/, $(MKS))
 
-OBJS			= $(addprefix $(OBJDIR)/, $(notdir $(SRCS:.c=.o)))
-DEPS			= $(addprefix $(DEPDIR)/, $(notdir $(SRCS:.c=.d)))
+include $(SRCDIR)/test/test.mk
+
+ifneq (,$(filter 1 1,$(RESIZEABLE) $(FULLSCREEN)))
+	SRCS	+= $(MLXDIR)/mlx_ext_randr.c
+	CFLAGS	+= -Wno-error=sign-compare -Wno-error=return-type
+	vpath %.c $(MLXDIR)
+endif
+
+OBJS		= $(addprefix $(OBJDIR)/, $(notdir $(SRCS:.c=.o)))
+DEPS		= $(addprefix $(DEPDIR)/, $(notdir $(SRCS:.c=.d)))
 
 all:	$(NAME)
 fast:	$(NAME)
 debug:	$(NAME)
 
 $(NAME): $(MLX) $(LIBFT) $(OBJS)
-	$(call ar-msg)
+	@$(call ar-msg)
 	@$(AR) $(ARFLAGS) $@ $^
 ifeq ($(FAST),1)
-	@$(RANLIB) $@
+	@$(RANLIB) $@ $(SILENCE)
 endif
 	$(call ar-finish-msg)
 
+test: $(NAME)
+	$(CF) $(TEST_SRCS) $(ARCHIVES) $(NAME) $(LFLAGS) -o $@
+
+
 $(LIBFT):
-	@$(MAKE) -s -C $(LIBFTDIR) $(RULE) $(MAKEFLAGS) ROOTDIR=../..
+	@$(MAKE) -s -C $(LIBFTDIR) $(RULE) $(VARS) ROOTDIR=../..
 
 $(MLX):
 	$(call mlx-build-msg)
-	@$(MAKE) -s -C $(MLXDIR) CC="gcc-12 $(if $(filter 1,$(FAST)),$(OFLAGS))" $(MUTE)
+	@$(MAKE) -s -C $(MLXDIR) CC="$(MLX_GCC) $(if $(filter 1,$(FAST)),$(OFLAGS))" $(MUTE)
 	$(call mlx-finish-msg)
 
 $(OBJDIR)/%.o: %.c | buildmsg $(OBJDIR) $(DEPDIR)
@@ -131,3 +164,6 @@ re: fclean all
 -include $(DEPS)
 
 .PHONY: all debug re clean fclean help buildmsg print-%
+
+
+
