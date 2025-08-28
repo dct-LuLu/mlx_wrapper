@@ -4,3 +4,4 @@
 .dep
 .obj
 *.a
+test
