@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 12:09:17 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/08/28 05:45:48 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/08/28 06:30:52 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,7 +161,5 @@ typedef struct MotifWmHints
 int		mlx_ext_fullscreen(t_xvar *xvar, t_win_list *win, int fullscreen);
 
 void	ft_disable_decorations(Display *d, Window w);
-
-
 
 #endif // MLX_WRAPPER_H
