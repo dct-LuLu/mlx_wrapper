@@ -6,7 +6,7 @@
 /*   By: jaubry-- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 23:08:29 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/08/28 06:22:50 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/08/28 07:16:57 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,11 @@ static int	key_press(int keycode, t_mlx *mlx_data)
 
 	if (is_escape_key(keycode))
 		mlx_loop_end(mlx_data->mlx);
+	if (RESIZEABLE && (keycode == XK_F11))
+	{
+		mlx_data->fullscreen = !mlx_data->fullscreen;
+		mlx_ext_fullscreen(mlx_data->mlx, mlx_data->win, mlx_data->fullscreen);
+	}
 	mlx_data->key_input.keycode = keycode;
 	i = 0;
 	while (i < mlx_data->key_input.key_events->num_elements)
