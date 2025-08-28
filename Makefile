@@ -6,7 +6,7 @@
 #    By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/11 10:16:04 by jaubry--          #+#    #+#              #
-#    Updated: 2025/08/21 19:17:58 by jaubry--         ###   ########lyon.fr    #
+#    Updated: 2025/08/28 08:53:23 by jaubry--         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,17 @@ ROOTDIR		?= .
 include $(ROOTDIR)/mkidir/make_utils.mk
 
 # Variables
+WINDOWLESS	= 0
+FULLSCREEN	= 0
+RESIZEABLE	= 0
+ifeq ($(FULLSCREEN), 1)
+WIDTH		= 1920
+HEIGHT		= 1080
+else
 WIDTH		= 500
 HEIGHT		= 500
+endif
+PERF		= 0
 
 # Directories
 CDIR		= mlx_wrapper
@@ -65,7 +74,8 @@ vpath %.d $(DEPDIR) $(LIBFTDIR)/$(DEPDIR)
 
 # Sources
 MKS			= draw/draw.mk \
-			  primitives/primitives.mk
+			  primitives/primitives.mk \
+			  keys/keys.mk
 
 include $(addprefix $(SRCDIR)/, $(MKS))
 

@@ -6,11 +6,23 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 12:11:45 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/08/21 20:10:53 by jaubry--         ###   ########lyon.fr   */
+/*   Updated: 2025/08/28 06:30:35 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mlx_wrapper.h"
+
+/*
+	Function that destroys key_events
+*/
+static void	free_key_events(t_mlx *mlx_data)
+{
+	if (mlx_data->key_input.key_events)
+	{
+		free_vector(mlx_data->key_input.key_events);
+		free(mlx_data->key_input.key_events);
+	}
+}
 
 /*
 	Function that kills the image
@@ -49,6 +61,7 @@ void	kill_mlx(t_mlx *mlx)
 			free(mlx->mlx);
 			mlx->mlx = NULL;
 		}
+		free_key_events(mlx);
 		free(mlx);
 	}
 }

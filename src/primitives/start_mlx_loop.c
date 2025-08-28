@@ -67,4 +67,5 @@ void start_mlx_loop(t_mlx *mlx, int (*loop)(), void *data)
 	loop_wrap.data = data;
 	mlx_loop_hook(loop_wrap.mlx->mlx, loop_wrapper, &loop_wrap);
 	mlx_loop(loop_wrap.mlx->mlx);
+	kill_mlx(loop_wrap.mlx);
 }
