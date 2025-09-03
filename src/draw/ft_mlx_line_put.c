@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 08:17:29 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/08/07 09:35:39 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/09/03 23:51:57 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ void	ft_mlx_line_put(t_img_data *img, t_vec2i a, t_vec2i b,
 	line = get_line_data(a, b);
 	while (true)
 	{
-		if ((a.x >= 0) && (a.x <= img->width) && (a.y >= 0)
-			&& (a.y <= img->height))
+		if ((a.x >= 0) && (a.x < img->width) && (a.y >= 0)
+			&& (a.y < img->height))
 			ft_mlx_pixel_put(img, a, color);
 		if ((a.x == b.x) && (a.y == b.y))
 			break ;
