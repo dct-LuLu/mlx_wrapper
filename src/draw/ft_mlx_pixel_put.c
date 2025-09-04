@@ -20,6 +20,6 @@ void	ft_mlx_pixel_put(t_img_data *img, const t_vec2i pos, const int color)
 void	ft_mlx_safe_pixel_put(t_img_data *img, const t_vec2i pos,
 			const int color)
 {
-	if ((pos.x >= 0) || (pos.x <= WIDTH) || (pos.y >= 0) || (pos.y <= HEIGHT))
+	if (pos.x >= 0 && pos.x <= WIDTH && pos.y >= 0 && pos.y <= HEIGHT)
 		img->addr[pos.y * WIDTH + pos.x] = color;
 }
