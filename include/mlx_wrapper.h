@@ -6,12 +6,13 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 12:09:17 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/08/21 20:02:24 by jaubry--         ###   ########lyon.fr   */
+/*   Updated: 2025/08/28 06:30:52 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MLX_WRAPPER_H
 # define MLX_WRAPPER_H
+# include "mlx_key.h"
 # include "libft.h"
 # include "vectors.h"
 # include <X11/X.h>
@@ -60,16 +61,51 @@ typedef struct s_img_data
 	int				height;//to change
 }					t_img_data;
 
+/*		 Future implementation
+typedef struct s_win
+{
+	t_win_list		*win;
+	t_img_daa		img;
+	t_vec2i			origin;
+	t_vec2i			size;
+	t_vec2i			half_size;
+	bool			fullscreen;
+}					t_win;
+*/
+
+typedef struct s_mlx	t_mlx;
+
+typedef struct s_key_event
+{
+	bool		(*is_key)(int);
+	bool		toggle;
+	void		(*action)(void *, t_mlx *);
+	void		*arg;
+	bool		*status;//program defined
+}				t_key_event;
+
+typedef struct s_key_input
+{
+	t_vector	*key_events;
+	bool		shift;
+	bool		ctrl;
+	bool		caps;
+	int			keycode;
+}				t_key_input;
+
 typedef struct s_mlx
 {
 	t_xvar			*mlx;
+//	t_win			*wins;
+	t_key_input		key_input;
 	t_win_list		*win;
 	t_img_data		img;
 	t_vec2i			origin;
 	t_vec2i			size;
+	t_vec2i			half_size; //enforce 2 multiple for size
 	bool			fullscreen;
 	size_t			frame_time;
-	size_t			delta_time;
+	float			delta_time;
 	size_t			total_time;
 	size_t			generation;
 	size_t			fps;
