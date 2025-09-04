@@ -48,6 +48,8 @@ void	kill_mlx(t_mlx *mlx)
 {
 	if (mlx)
 	{
+		if (FULLSCREEN)
+			mlx_ext_fullscreen(mlx->mlx, mlx->win, 0);
 		if (mlx->img.img)
 			kill_img(mlx->mlx, &mlx->img);
 		if (mlx->win)

@@ -21,7 +21,7 @@ static void	key_action(t_mlx *mlx_data)
 	while (i < mlx_data->key_input.key_events->num_elements)
 	{
 		key_event = get_vector_value(mlx_data->key_input.key_events, i);
-		if (*(key_event->status) && key_event->action)
+		if (key_event->action && key_event->is_key(mlx_data->key_input.keycode))
 			key_event->action(key_event->arg, mlx_data);
 		i++;
 	}
@@ -44,7 +44,7 @@ static int	key_press(int keycode, t_mlx *mlx_data)
 	while (i < mlx_data->key_input.key_events->num_elements)
 	{
 		key_event = get_vector_value(mlx_data->key_input.key_events, i);
-		if (key_event->is_key(keycode))
+		if (key_event->is_key(keycode) && key_event->status)
 		{
 			if (key_event->toggle)
 				*(key_event->status) = !*(key_event->status);
@@ -67,7 +67,7 @@ static int	key_release(int keycode, t_mlx *mlx_data)
 	while (i < mlx_data->key_input.key_events->num_elements)
 	{
 		key_event = get_vector_value(mlx_data->key_input.key_events, i);
-		if (!(key_event->toggle) && key_event->is_key(keycode))
+		if (!(key_event->toggle) && key_event->is_key(keycode) && key_event->status)
 			*(key_event->status) = false;
 		i++;
 	}
