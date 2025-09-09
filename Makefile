@@ -6,7 +6,7 @@
 #    By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/11 10:16:04 by jaubry--          #+#    #+#              #
-#    Updated: 2025/08/28 07:23:30 by jaubry--         ###   ########.fr        #
+#    Updated: 2025/09/09 01:46:09 by jaubry--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,9 @@ ROOTDIR		?= .
 include $(ROOTDIR)/mkidir/make_utils.mk
 
 # Variables
+RESOLUTION	= $(shell xrandr | sed -n '/primary/{n;p;}' | awk '{print $$1}')
+MAX_WIDTH	= $(shell echo $(RESOLUTION) | cut -d 'x' -f 1)
+MAX_HEIGHT	= $(shell echo $(RESOLUTION) | cut -d 'x' -f 2-)
 WINDOWLESS	= 0
 FULLSCREEN	= 0
 RESIZEABLE	= 0
@@ -62,7 +65,9 @@ VARS		= DEBUG=$(DEBUG) \
 			  PERF=$(PERF) \
 			  FULLSCREEN=$(FULLSCREEN) \
 			  RESIZEABLE=$(RESIZEABLE) \
-			  WINDOWLESS=$(WINDOWLESS)
+			  WINDOWLESS=$(WINDOWLESS) \
+			  MAX_WIDTH=$(MAX_WIDTH) \
+			  MAX_HEIGHT=$(MAX_HEIGHT)
 VFLAGS		= $(addprefix -D ,$(VARS))
 
 CFLAGS		+= $(DEBUG_FLAGS) $(FFLAGS) $(VFLAGS)
@@ -80,7 +85,8 @@ vpath %.d $(DEPDIR) $(LIBFTDIR)/$(DEPDIR)
 # Sources
 MKS			= draw/draw.mk \
 			  primitives/primitives.mk \
-			  keys/keys.mk
+			  keys/keys.mk \
+			  mouse/mouse.mk
 
 include $(addprefix $(SRCDIR)/, $(MKS))
 

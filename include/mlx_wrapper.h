@@ -6,19 +6,21 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 12:09:17 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/08/28 06:30:52 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/09/09 01:48:35 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MLX_WRAPPER_H
 # define MLX_WRAPPER_H
-# include "mlx_key.h"
-# include "libft.h"
-# include "vectors.h"
 # include <X11/X.h>
 # include <X11/keysym.h>
 # include <mlx.h>
 # include <mlx_int.h>
+# include "mlx_draw.h"
+# include "mlx_key_input.h"
+# include "mlx_mouse_input.h"
+# include "libft.h"
+# include "vectors.h"
 
 # ifndef DEBUG
 #  define DEBUG 0
@@ -31,6 +33,14 @@
 # ifndef HEIGHT
 #  define HEIGHT 500
 # endif//HEIGHT
+
+# ifndef MAX_WIDTH
+#  define MAX_WIDTH 500
+# endif//MAX_WIDTH
+
+# ifndef MAX_HEIGHT
+#  define MAX_HEIGHT 500
+# endif//MAX_HEIGHT
 
 # ifndef PERF
 #  define PERF 0
@@ -73,31 +83,13 @@ typedef struct s_win
 }					t_win;
 */
 
-typedef struct s_mlx	t_mlx;
-
-typedef struct s_key_event
-{
-	bool		(*is_key)(int);
-	bool		toggle;
-	void		(*action)(void *, t_mlx *);
-	void		*arg;
-	bool		*status;//program defined
-}				t_key_event;
-
-typedef struct s_key_input
-{
-	t_vector	*key_events;
-	bool		shift;
-	bool		ctrl;
-	bool		caps;
-	int			keycode;
-}				t_key_input;
 
 typedef struct s_mlx
 {
 	t_xvar			*mlx;
 //	t_win			*wins;
 	t_key_input		key_input;
+	t_mouse_input	mouse_input;
 	t_win_list		*win;
 	t_img_data		img;
 	t_vec2i			origin;
@@ -117,37 +109,7 @@ void	kill_mlx(t_mlx *mlx);
 
 void 	start_mlx_loop(t_mlx *mlx, int (*loop)(), void *data);
 
-//drawing functions
-void	ft_mlx_pixel_put(t_img_data *img, const t_vec2i pos,
-			const int color);
-
-void	ft_mlx_safe_pixel_put(t_img_data *img, const t_vec2i pos,
-			const int color);
-
-typedef struct s_line
-{
-	int				dx;
-	int				dy;
-	int				sx;
-	int				sy;
-	int				err;
-	int				e2;
-}					t_line;
-
-void	ft_mlx_line_put(t_img_data *img, t_vec2i a, t_vec2i b,
-			const int color);
-
-void	ft_mlx_horizontal_line(t_img_data *img, const int xpt[2],
-			const int y, const int color);
-
-void	ft_mlx_batch_put(t_img_data *img, const t_vec2i pos,
-			const t_vec2i size, const int color);
-
-void	ft_mlx_circle_put(t_img_data *img, const t_vec2i center,
-			const int radius, const int color);
-
-void	ft_mlx_draw_quadratic_curve(t_img_data *img,
-			const t_vec2i *pts, const int color);
+void	ft_mlx_center_window(t_mlx *mlx_data);
 
 typedef struct MotifWmHints
 {

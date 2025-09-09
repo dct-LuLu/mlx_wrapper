@@ -6,7 +6,7 @@
 /*   By: jaubry-- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 20:12:25 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/08/28 06:21:54 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/09/09 01:50:30 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,32 @@ static void	setup_print_char_key(t_mlx *mlx_data, bool *is_typing)
 	vector_add(mlx_data->key_input.key_events, &char_key_event, 1);
 }
 
+static bool	is_k_key(int keycode)
+{
+	return (XK_k == keycode);
+}
+
+static void	setup_mouse_focus(t_mlx *mlx_data)
+{
+	t_key_event	mouse_focus_event;
+
+	mouse_focus_event = (t_key_event)
+	{
+		.is_key = is_k_key,
+		.action = NULL,
+		.arg = NULL,
+		.toggle = true,
+		.status = &(mlx_data->mouse_input.focus)
+	};
+	vector_add(mlx_data->key_input.key_events, &mouse_focus_event, 1);
+}
+
 int	loop(t_mlx *mlx_data)
 {
 	(void)mlx_data;
 	return (0);
 }
+
 
 int	main(void)
 {
@@ -84,7 +105,10 @@ int	main(void)
 	mlx_data = init_mlx(500, 500, "TEST");
 	if (!mlx_data)
 		return (-1);
-	setup_print_char_key(mlx_data, &is_typing);
+	ft_mlx_center_window(mlx_data);
+	setup_mouse_focus(mlx_data);
+	if (false)
+		setup_print_char_key(mlx_data, &is_typing);
 	start_mlx_loop(mlx_data, loop, mlx_data);
 	return (0);
 }
