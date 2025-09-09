@@ -1,22 +1,24 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    test.mk                                            :+:      :+:    :+:    #
+#    mouse.mk                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jaubry-- <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/08/27 22:11:03 by jaubry--          #+#    #+#              #
-#    Updated: 2025/08/27 22:13:15 by jaubry--         ###   ########.fr        #
+#    Created: 2025/09/08 02:51:32 by jaubry--          #+#    #+#              #
+#    Updated: 2025/09/08 02:52:25 by jaubry--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Directories
-TEST_DIR	= $(SRCDIR)/test
+MOUSE_DIR	= $(SRCDIR)/mouse
 
 # Source files
-TEST_SRCS	= main.c
+MOUSE_SRCS	= mouse.c \
 
-TEST_SRCS	:= $(addprefix $(TEST_DIR)/, $(TEST_SRCS))
+MOUSE_SRCS	:= $(addprefix $(MOUSE_DIR)/, $(MOUSE_SRCS))
+
+SRCS			+= $(MOUSE_SRCS)
 
 # VPATH
-vpath %.c $(TEST_DIR)
+vpath %.c $(MOUSE_DIR)

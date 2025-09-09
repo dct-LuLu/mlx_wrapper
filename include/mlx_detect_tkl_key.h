@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlx_tkl_key.h                                      :+:      :+:    :+:   */
+/*   mlx_detect_tkl_key.h                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaubry-- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 05:00:11 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/08/28 07:16:10 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/09/08 23:18:01 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MLX_TKL_KEY_H
-# define MLX_TKL_KEY_H
+#ifndef MLX_DETECT_TKL_KEY_H
+# define MLX_DETECT_TKL_KEY_H
 # include <stdbool.h>
 # include <X11/keysym.h>
 
@@ -36,4 +36,4 @@ static inline bool	is_tkl_char_key(const int keycode)
 	 		 || is_space_key(keycode));
 }
 
-#endif//MLX_TKL_KEY_H
+#endif//MLX_DETECT_TKL_KEY_H

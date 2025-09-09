@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlx_special_key.h                                  :+:      :+:    :+:   */
+/*   mlx_detect_special_key.h                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaubry-- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 05:04:33 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/08/28 06:05:50 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/09/08 23:17:39 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MLX_SPECIAL_KEY_H
-# define MLX_SPECIAL_KEY_H
+#ifndef MLX_DETECT_SPECIAL_KEY_H
+# define MLX_DETECT_SPECIAL_KEY_H
 # include <stdbool.h>
 # include <X11/keysym.h>
 
@@ -45,4 +45,4 @@ static inline bool	is_escape_key(int keycode)
 	return (keycode == XK_Escape);
 }
 
-#endif//MLX_SPECIAL_KEY_H
+#endif//MLX_DETECT_SPECIAL_KEY_H

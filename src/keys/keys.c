@@ -6,7 +6,7 @@
 /*   By: jaubry-- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 23:08:29 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/08/28 07:16:57 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/09/08 23:16:01 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ static int	key_release(int keycode, t_mlx *mlx_data)
 	return (0);
 }
 
+//check return err;
 static void	setup_special_key_events(t_mlx *mlx_data)
 {
 	t_key_event	special_key_events[3];

@@ -6,14 +6,13 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 08:26:41 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/08/28 06:29:41 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/09/09 02:10:58 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mlx_wrapper.h"
 #include "mlx.h"
 #include <stdio.h>
-
 
 /*
 	Function to init image with given size, will init it's metadata too.
@@ -33,11 +32,15 @@ static inline int	init_img_data(t_img_data *img_data, t_xvar *mlx,
 }
 
 int		setup_key_input(t_mlx *mlx_data);
+int		setup_mouse_input(t_mlx *mlx_data);
 
 t_mlx	*init_mlx(const int width, const int height, char *title)
 {
 	t_mlx		*mlx;
 
+	if (((MAX_WIDTH % 2) == 1) || ((MAX_HEIGHT % 2) == 1)
+			|| ((width % 2) == 1) || ((height % 2) == 1))
+		return (NULL);//err
 	mlx = ft_calloc(sizeof(t_mlx), 1);
 	if (!mlx)
 		return (NULL);
@@ -58,6 +61,8 @@ t_mlx	*init_mlx(const int width, const int height, char *title)
 	if (FULLSCREEN)
 		mlx_ext_fullscreen(mlx->mlx, mlx->win, 1);
 	if (setup_key_input(mlx) == -1)
+		return (kill_mlx(mlx), NULL);
+	if (setup_mouse_input(mlx) == -1)
 		return (kill_mlx(mlx), NULL);
 	return (mlx);
 }
