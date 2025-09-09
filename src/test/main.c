@@ -6,7 +6,7 @@
 /*   By: jaubry-- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 20:12:25 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/09/09 01:50:30 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/09/09 09:38:59 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ static char	get_char_input(int keycode, bool maj)
 	return (c);
 }
 
-
-
 #include <unistd.h>
 static void	action_char_input(t_key_input *key_input, t_mlx *mlx)
 {
@@ -53,40 +51,9 @@ static void	action_char_input(t_key_input *key_input, t_mlx *mlx)
 	write(1, &c, 1);
 }
 
-
-static void	setup_print_char_key(t_mlx *mlx_data, bool *is_typing)
+static bool	is_f1_key(int keycode)
 {
-	t_key_event	char_key_event;
-
-	char_key_event = (t_key_event)
-	{
-		.is_key = is_char_key,
-		.action = (void (*)(void *, t_mlx *))action_char_input,
-		.arg = &(mlx_data->key_input),
-		.toggle = false,
-		.status = is_typing
-	};
-	vector_add(mlx_data->key_input.key_events, &char_key_event, 1);
-}
-
-static bool	is_k_key(int keycode)
-{
-	return (XK_k == keycode);
-}
-
-static void	setup_mouse_focus(t_mlx *mlx_data)
-{
-	t_key_event	mouse_focus_event;
-
-	mouse_focus_event = (t_key_event)
-	{
-		.is_key = is_k_key,
-		.action = NULL,
-		.arg = NULL,
-		.toggle = true,
-		.status = &(mlx_data->mouse_input.focus)
-	};
-	vector_add(mlx_data->key_input.key_events, &mouse_focus_event, 1);
+	return (XK_F1 == keycode);
 }
 
 int	loop(t_mlx *mlx_data)
@@ -95,20 +62,18 @@ int	loop(t_mlx *mlx_data)
 	return (0);
 }
 
-
 int	main(void)
 {
 	t_mlx	*mlx_data;
-	bool	is_typing;
 
-	is_typing = false;
-	mlx_data = init_mlx(500, 500, "TEST");
+	mlx_data = init_mlx(WIDTH, HEIGHT, "TEST");
 	if (!mlx_data)
 		return (-1);
 	ft_mlx_center_window(mlx_data);
-	setup_mouse_focus(mlx_data);
-	if (false)
-		setup_print_char_key(mlx_data, &is_typing);
+	//setup_mouse_focus(mlx_data);
+	add_status_key_hook(mlx_data, is_f1_key, true, &(mlx_data->mouse_input.focus));
+	add_func_key_hook(mlx_data, is_char_key,
+			(void (*)(void *, t_mlx *))action_char_input, &(mlx_data->key_input));
 	start_mlx_loop(mlx_data, loop, mlx_data);
 	return (0);
 }
