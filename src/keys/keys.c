@@ -6,7 +6,7 @@
 /*   By: jaubry-- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 23:08:29 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/09/09 09:37:17 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/09/09 10:28:34 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,12 @@ static bool	is_f11_key(int keycode)
 //check return err;
 static void	setup_special_key_events(t_mlx *mlx_data)
 {
-	add_status_key_hook(mlx_data, is_ctrl_key, false, &(mlx_data->key_input.ctrl));
-	add_status_key_hook(mlx_data, is_shift_key, false, &(mlx_data->key_input.shift));
-	add_status_key_hook(mlx_data, is_caps_key, true, &(mlx_data->key_input.caps));
+	add_status_key_hook(mlx_data, is_ctrl_key, false,
+			&(mlx_data->key_input.ctrl));
+	add_status_key_hook(mlx_data, is_shift_key, false,
+			&(mlx_data->key_input.shift));
+	add_status_key_hook(mlx_data, is_caps_key, true,
+			&(mlx_data->key_input.caps));
 	add_func_key_hook(mlx_data, is_escape_key, mlx_exit, NULL);
 	add_func_key_hook(mlx_data, is_f11_key, ft_mlx_fullscreen_toggle, NULL);
 }

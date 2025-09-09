@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 02:52:27 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/09/09 09:58:13 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/09/09 10:13:15 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	mouse_move_focus(t_mlx *mlx_data)
 	mlx_data->mouse_input.last_pos = mlx_data->half_size;
 }
 
-static void	update_mouse_focus_state(void *v, t_mlx *mlx_data)//a ameliorer
+void	update_mouse_focus_state(void *v, t_mlx *mlx_data)//a ameliorer
 {
 	bool	focus_mode = mlx_data->mouse_input.focus;
 
