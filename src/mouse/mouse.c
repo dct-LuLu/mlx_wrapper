@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 02:52:27 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/09/09 04:12:29 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/09/09 10:00:28 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,7 @@ static int	mouse_move(int x, int y, t_mlx *mlx_data)
 	if (mlx_data->mouse_input.focus)
 		mouse_move_focus(mlx_data);
 	else
-	{
-		mlx_data->mouse_input.last_pos.x = mlx_data->mouse_input.pos.x;
-		mlx_data->mouse_input.last_pos.y = mlx_data->mouse_input.pos.y;
-	}
+		mlx_data->mouse_input.last_pos = mlx_data->mouse_input.pos;
 	mlx_data->mouse_input.pos.x = x;
 	mlx_data->mouse_input.pos.y = y;
 	mouse_move_action(mlx_data);
