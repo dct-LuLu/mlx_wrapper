@@ -4,3 +4,7 @@
 .dep
 .obj
 *.a
+test
+src/test/
+lib/
+mkidir/
