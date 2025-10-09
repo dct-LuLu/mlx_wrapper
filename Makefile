@@ -6,7 +6,7 @@
 #    By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/11 10:16:04 by jaubry--          #+#    #+#              #
-#    Updated: 2025/09/09 02:25:27 by jaubry--         ###   ########.fr        #
+#    Updated: 2025/10/09 19:37:46 by jaubry--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,11 +36,13 @@ INCDIR		= include
 OBJDIR		= .obj
 DEPDIR		= .dep
 
+XCERRCALDIR	= $(LIBDIR)/xcerrcal
 LIBFTDIR	= $(LIBDIR)/libft
 MLXDIR		= $(LIBDIR)/minilibx-linux
 
 # Output
 NAME		= libmlx-wrapper.a
+XCERRCAL	= $(XCERRCALDIR)/libxcerrcal.a
 LIBFT		= $(LIBFTDIR)/libft.a
 MLX			= $(MLXDIR)/libmlx.a
 
@@ -52,7 +54,7 @@ CFLAGS		= -Wall -Wextra -Werror \
 
 DFLAGS		= -MMD -MP -MF $(DEPDIR)/$*.d
 
-IFLAGS		= -I$(INCDIR) -I$(LIBFTDIR)/include -I$(MLXDIR)
+IFLAGS		= -I$(INCDIR) -I$(XCERRCALDIR)/include -I$(LIBFTDIR)/include -I$(MLXDIR)
 
 VARS		= DEBUG=$(DEBUG) \
 			  WIDTH=$(WIDTH) \
@@ -98,13 +100,16 @@ all:	$(NAME)
 fast:	$(NAME)
 debug:	$(NAME)
 
-$(NAME): $(MLX) $(LIBFT) $(OBJS)
+$(NAME): $(XCERRCAL) $(MLX) $(LIBFT) $(OBJS)
 	@$(call ar-msg) $(SILENCE)
 	@$(AR) $(ARFLAGS) $@ $^
 ifeq ($(FAST),1)
 	@$(RANLIB) $@ $(SILENCE)
 endif
 	$(call ar-finish-msg)
+
+$(XCERRCAL):
+	@$(MAKE) -s -C $(XCERRCALDIR) $(RULE) $(VARS) ROOTDIR=../..
 
 $(LIBFT):
 	@$(MAKE) -s -C $(LIBFTDIR) $(RULE) $(VARS) ROOTDIR=../..
