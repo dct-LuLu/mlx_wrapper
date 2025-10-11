@@ -6,13 +6,13 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 08:26:41 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/09/09 02:10:58 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/10/11 20:53:26 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mlx_wrapper.h"
-#include "mlx.h"
 #include <stdio.h>
+#include "mlx.h"
+#include "mlx_wrapper.h"
 
 /*
 	Function to init image with given size, will init it's metadata too.
@@ -31,27 +31,16 @@ static inline int	init_img_data(t_img_data *img_data, t_xvar *mlx,
 	return (0);
 }
 
-int		setup_key_input(t_mlx *mlx_data);
-int		setup_mouse_input(t_mlx *mlx_data);
-
-t_mlx	*init_mlx(const int width, const int height, char *title)
+static inline bool	valid_win_size(const int width, const int height)
 {
-	t_mlx		*mlx;
+	return (((MAX_WIDTH % 2) == 1)
+		|| ((MAX_HEIGHT % 2) == 1)
+		|| ((width % 2) == 1)
+		|| ((height % 2) == 1));
+}
 
-	if (((MAX_WIDTH % 2) == 1) || ((MAX_HEIGHT % 2) == 1)
-			|| ((width % 2) == 1) || ((height % 2) == 1))
-		return (NULL);//err
-	mlx = ft_calloc(sizeof(t_mlx), 1);
-	if (!mlx)
-		return (NULL);
-	mlx->mlx = mlx_init();
-	if (!mlx->mlx)
-		return (kill_mlx(mlx), NULL);
-	mlx->win = mlx_new_window(mlx->mlx, width, height, title);
-	if (!mlx->win)
-		return (kill_mlx(mlx), NULL);
-	if (init_img_data(&(mlx->img), mlx->mlx, width, height) != 0)
-		return (kill_mlx(mlx), NULL);
+static inline void	setup_settings(t_mlx *mlx, const int width, const int height)
+{
 	mlx->origin = vec2i(0, 0);
 	mlx->size = vec2i(width, height);
 	mlx->half_size = vec2i(width / 2, height / 2);
@@ -60,9 +49,32 @@ t_mlx	*init_mlx(const int width, const int height, char *title)
 		ft_disable_decorations(mlx->mlx->display, mlx->win->window);
 	if (FULLSCREEN)
 		mlx_ext_fullscreen(mlx->mlx, mlx->win, 1);
-	if (setup_key_input(mlx) == -1)
-		return (kill_mlx(mlx), NULL);
-	if (setup_mouse_input(mlx) == -1)
-		return (kill_mlx(mlx), NULL);
+}
+
+int		setup_key_input(t_mlx *mlx_data);
+int		setup_mouse_input(t_mlx *mlx_data);
+
+t_mlx	*init_mlx(const int width, const int height, char *title)
+{
+	t_mlx		*mlx;
+
+	if (valid_win_size(width, height) != 0)
+		return (nul_error(pack_err(MLXW_ID, MLXW_E_WSIZE), FL, LN, FC));
+	mlx = ft_calloc(sizeof(t_mlx), 1);
+	if (!mlx)
+		return (NULL);
+	mlx->mlx = mlx_init();
+	if (!mlx->mlx && (kill_mlx(mlx), 1))
+		return (nul_error(pack_err(MLXW_ID, MLXW_E_MLXF), FL, LN, FC));
+	mlx->win = mlx_new_window(mlx->mlx, width, height, title);
+	if (!mlx->win && (kill_mlx(mlx), 1))
+		return (nul_error(pack_err(MLXW_ID, MLXW_E_WINF), FL, LN, FC));
+	if ((init_img_data(&(mlx->img), mlx->mlx, width, height) != 0) && (kill_mlx(mlx), 1))
+		return (nul_error(pack_err(MLXW_ID, MLXW_E_IMGF), FL, LN, FC));
+	setup_settings(mlx, width, height);
+	if ((setup_key_input(mlx) == -1) && (kill_mlx(mlx), 1))
+		return (nul_error(pack_err(MLXW_ID, MLXW_E_KEYF), FL, LN, FC));
+	if ((setup_mouse_input(mlx) == -1) && (kill_mlx(mlx), 1))
+		return (nul_error(pack_err(MLXW_ID, MLXW_E_MOUSEF), FL, LN, FC));
 	return (mlx);
 }

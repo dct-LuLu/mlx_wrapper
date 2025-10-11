@@ -6,7 +6,7 @@
 #    By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/11 10:16:04 by jaubry--          #+#    #+#              #
-#    Updated: 2025/10/09 19:37:46 by jaubry--         ###   ########.fr        #
+#    Updated: 2025/10/11 20:32:48 by jaubry--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,12 +80,7 @@ vpath %.o $(OBJDIR) $(LIBFTDIR)/$(OBJDIR)
 vpath %.d $(DEPDIR) $(LIBFTDIR)/$(DEPDIR)
 
 # Sources
-MKS			= draw/draw.mk \
-			  primitives/primitives.mk \
-			  keys/keys.mk \
-			  mouse/mouse.mk
-
-include $(addprefix $(SRCDIR)/, $(MKS))
+include $(SRCDIR)/srcs.mk
 
 ifneq (,$(filter 1 1,$(RESIZEABLE) $(FULLSCREEN)))
 	SRCS	+= $(MLXDIR)/mlx_ext_randr.c

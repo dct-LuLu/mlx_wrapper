@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 23:07:04 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/09/09 09:26:04 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/10/11 20:24:27 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ typedef struct s_key_input
 	int			keycode;
 }				t_key_input;
 
-void	add_status_key_hook(t_mlx *mlx_data, bool (*is_key)(int),
+int	add_status_key_hook(t_mlx *mlx_data, bool (*is_key)(int),
 		bool toggle, bool *status);
 
-void	add_func_key_hook(t_mlx *mlx_data, bool (*is_key)(int),
+int	add_func_key_hook(t_mlx *mlx_data, bool (*is_key)(int),
 		void (*action)(void *, t_mlx *), void *arg);
 
 #endif//MLX_KEY_INPUT_H
