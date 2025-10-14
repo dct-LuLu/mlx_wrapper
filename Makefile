@@ -96,7 +96,7 @@ fast:	$(NAME)
 debug:	$(NAME)
 
 $(NAME): $(XCERRCAL) $(MLX) $(LIBFT) $(OBJS)
-	@$(call ar-msg) $(SILENCE)
+	@$(call ar-msg)
 	@$(AR) $(ARFLAGS) $@ $^
 ifeq ($(FAST),1)
 	@$(RANLIB) $@ $(SILENCE)

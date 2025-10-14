@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/11 18:02:28 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/10/11 20:21:57 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/10/14 21:14:31 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ typedef enum e_mlxw_err
 #define MLXW_E_MSG_SKEYF "Setup of standard keys and mod keys behaviour failed"
 #define MLXW_E_MSG_KEYHF "Key inputs hook logic initialization failed"
 #define MLXW_E_MSG_MOUSEHF "Mouse inputs hook logic initialization failed"
-#define MLXW_E_MSG_KEY "New key event hook addition was unsuccessful"
+#define MLXW_E_MSG_KEY "Failed to attach new key event hook"
 
 void	register_mlxw_errors(void);
 
