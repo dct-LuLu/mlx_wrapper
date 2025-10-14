@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/11 18:01:59 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/10/11 20:26:45 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/10/15 01:31:15 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,12 @@ void	register_mlxw_errors(void)
 		MLXW_E_MSG_WINF,
 		MLXW_E_MSG_IMGF,
 		MLXW_E_MSG_SKEYF,
-		MLXW_E_MSG_KEYHF,
-		MLXW_E_MSG_MOUSEHF,
-		MLXW_E_MSG_KEY
+		MLXW_E_MSG_KEYF,
+		MLXW_E_MSG_WMEVENT,
+		MLXW_E_MSG_BUTTONHF,
+		MLXW_E_MSG_MOTIONHF,
+		MLXW_E_MSG_MOUSEF,
+		MLXW_E_MSG_EVENTH
 	};
 	bulk_register_error(MLXW_ERRS_NUM - 1, MLXW_ID, (const char **)err_msgs);
 }

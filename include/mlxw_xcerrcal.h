@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/11 18:02:28 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/10/14 21:11:08 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/10/15 01:29:57 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,11 @@ typedef enum e_mlxw_err
 	MLXW_E_IMGF,
 	MLXW_E_SKEYF,
 	MLXW_E_KEYF,
+	MLXW_E_WMEVENT,
+	MLXW_E_BUTTONHF,
+	MLXW_E_MOTIONHF,
 	MLXW_E_MOUSEF,
-	MLXW_E_KEY,
+	MLXW_E_EVENTH,
 	MLXW_ERRS_NUM
 }	t_mlxw_err;
 
@@ -35,9 +38,12 @@ typedef enum e_mlxw_err
 #define MLXW_E_MSG_WINF "Window initialization failed"
 #define MLXW_E_MSG_IMGF "Image initialization failed"
 #define MLXW_E_MSG_SKEYF "Setup of standard keys and mod keys behaviour failed"
-#define MLXW_E_MSG_KEYHF "Key inputs hook logic initialization failed"
-#define MLXW_E_MSG_MOUSEHF "Mouse inputs hook logic initialization failed"
-#define MLXW_E_MSG_KEY "Failed to attach new key event hook"
+#define MLXW_E_MSG_KEYF "Key inputs hook logic initialization failed"
+#define MLXW_E_MSG_WMEVENT "Mouse button hook with keycode value 0 is forbidden"
+#define MLXW_E_MSG_BUTTONHF "Mouse buttons hook logic initialization failed"
+#define MLXW_E_MSG_MOTIONHF "Mouse motion hook logic initialization failed"
+#define MLXW_E_MSG_MOUSEF "Mouse inputs hook logic initialization failed"
+#define MLXW_E_MSG_EVENTH "Failed to attach new event hook"
 
 void	register_mlxw_errors(void);
 

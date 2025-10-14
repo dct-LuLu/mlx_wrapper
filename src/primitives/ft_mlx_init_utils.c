@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 08:26:41 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/10/08 10:14:27 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/10/15 01:28:48 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ t_mlx	*init_mlx(const int width, const int height, char *title)
 	mlx->mlx = mlx_init();
 	if (!mlx->mlx && (kill_mlx(mlx), 1))
 		return (nul_error(pack_err(MLXW_ID, MLXW_E_MLXF), FL, LN, FC));
+	//ft_bzero(mlx->win, sizeof(t_win_list *));
 	mlx->win = mlx_new_window(mlx->mlx, width, height, title);
 	if (!mlx->win && (kill_mlx(mlx), 1))
 		return (nul_error(pack_err(MLXW_ID, MLXW_E_WINF), FL, LN, FC));
