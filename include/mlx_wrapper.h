@@ -16,6 +16,8 @@
 # include <X11/keysym.h>
 # include <mlx.h>
 # include <mlx_int.h>
+# include "xcerrcal.h"
+# include "mlxw_xcerrcal.h"
 # include "mlx_draw.h"
 # include "mlx_key_input.h"
 # include "mlx_mouse_input.h"

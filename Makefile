@@ -6,7 +6,7 @@
 #    By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/11 10:16:04 by jaubry--          #+#    #+#              #
-#    Updated: 2025/09/09 01:46:09 by jaubry--         ###   ########.fr        #
+#    Updated: 2025/10/14 20:59:49 by jaubry--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,14 +36,16 @@ INCDIR		= include
 OBJDIR		= .obj
 DEPDIR		= .dep
 
+XCERRCALDIR	= $(LIBDIR)/xcerrcal
 LIBFTDIR	= $(LIBDIR)/libft
 MLXDIR		= $(LIBDIR)/minilibx-linux
 
 # Output
 NAME		= libmlx-wrapper.a
+XCERRCAL	= $(XCERRCALDIR)/libxcerrcal.a
 LIBFT		= $(LIBFTDIR)/libft.a
 MLX			= $(MLXDIR)/libmlx.a
-ARCHIVES	= $(MLX) $(LIBFT)
+ARCHIVES	= $(XCERRCAL) $(MLX) $(LIBFT)
 
 # Compiler and flags
 CC			= cc
@@ -53,10 +55,10 @@ CFLAGS		= -Wall -Wextra -Werror \
 
 DFLAGS		= -MMD -MP -MF $(DEPDIR)/$*.d
 
-IFLAGS		= -I$(INCDIR) -I$(LIBFTDIR)/include -I$(MLXDIR)
+IFLAGS		= -I$(INCDIR) -I$(XCERRCALDIR)/include -I$(LIBFTDIR)/include -I$(MLXDIR)
 
-LFLAGS		= -L$(MLXDIR) -L$(LIBFTDIR) \
-			  -lmlx -lft \
+LFLAGS		= -L$(MLXDIR) -L$(LIBFTDIR) -L$(XCERRCALDIR) \
+			  -lmlx -lft -lxcerrcal -lft \
 			  -lXext -lX11 -lXrandr -lm
 
 VARS		= DEBUG=$(DEBUG) \
@@ -83,14 +85,7 @@ vpath %.o $(OBJDIR) $(LIBFTDIR)/$(OBJDIR)
 vpath %.d $(DEPDIR) $(LIBFTDIR)/$(DEPDIR)
 
 # Sources
-MKS			= draw/draw.mk \
-			  primitives/primitives.mk \
-			  keys/keys.mk \
-			  mouse/mouse.mk
-
-include $(addprefix $(SRCDIR)/, $(MKS))
-
-include $(SRCDIR)/test/test.mk
+include $(SRCDIR)/srcs.mk
 
 ifneq (,$(filter 1 1,$(RESIZEABLE) $(FULLSCREEN)))
 	SRCS	+= $(MLXDIR)/mlx_ext_randr.c
@@ -105,7 +100,7 @@ all:	$(NAME)
 fast:	$(NAME)
 debug:	$(NAME)
 
-$(NAME): $(MLX) $(LIBFT) $(OBJS)
+$(NAME): $(XCERRCAL) $(MLX) $(LIBFT) $(OBJS)
 	@$(call ar-msg)
 	@$(AR) $(ARFLAGS) $@ $^
 ifeq ($(FAST),1)
@@ -116,6 +111,8 @@ endif
 test: $(NAME)
 	$(CF) $(TEST_SRCS) $(ARCHIVES) $(NAME) $(LFLAGS) -o $@
 
+$(XCERRCAL):
+	@$(MAKE) -s -C $(XCERRCALDIR) $(RULE) $(VARS) ROOTDIR=../..
 
 $(LIBFT):
 	@$(MAKE) -s -C $(LIBFTDIR) $(RULE) $(VARS) ROOTDIR=../..
@@ -171,6 +168,3 @@ re: fclean all
 -include $(DEPS)
 
 .PHONY: all debug re clean fclean help buildmsg print-%
-
-
-

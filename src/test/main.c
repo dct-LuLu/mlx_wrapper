@@ -6,12 +6,16 @@
 /*   By: jaubry-- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 20:12:25 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/09/09 10:56:39 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/10/14 21:07:50 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "xcerrcal.h"
+#include "lft_xcerrcal.h"
+#include "mlxw_xcerrcal.h"
 #include "mlx_wrapper.h"
 #include <stdio.h>
+#include <unistd.h>
 
 #define MIN_CHAR "       '    ,-./0123456789 ; =                             [\\]  `abcdefghijklmnopqrstuvwxyz"
 #define MAX_CHAR "       \"    <_>?)!@#$%^&*( : +                             {|}  ~ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -41,7 +45,6 @@ static char	get_char_input(int keycode, bool maj)
 	return (c);
 }
 
-#include <unistd.h>
 static void	action_char_input(t_key_input *key_input, t_mlx *mlx)
 {
 	char	c;
@@ -86,20 +89,30 @@ void	switch_focus_state(void *v, t_mlx *mlx_data)
 	update_mouse_focus_state(v, mlx_data);
 }
 
+void	register_errors(void)
+{
+	register_lft_errors();
+	register_mlxw_errors();
+}
+
 int	main(void)
 {
 	t_mlx	*mlx_data;
+	int		ret;
 
+	ret = 0;
+	register_errors();
 	mlx_data = init_mlx(WIDTH, HEIGHT, "TEST");
 	if (!mlx_data)
-		return (-1);
+		ret = error(pack_err(MLXW_ID, MLXW_E_INITF), FL, LN, FC);
 	ft_mlx_center_window(mlx_data);
-	mlx_data->mouse_input.focus = true;
+	mlx_data->mouse_input.focus = false;
 	update_mouse_focus_state(NULL, mlx_data);
 	add_func_key_hook(mlx_data, is_f1_key, switch_focus_state, NULL);
 	add_func_key_hook(mlx_data, is_char_key,
 			(void (*)(void *, t_mlx *))action_char_input, &(mlx_data->key_input));
 	add_mouse_hook(mlx_data);
 	start_mlx_loop(mlx_data, loop, mlx_data);
-	return (0);
+	print_errs();
+	return (ret);
 }
