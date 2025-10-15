@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 02:24:53 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/10/15 20:26:10 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/10/15 20:28:36 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,7 @@ void	ft_mlx_hline(t_img_data *img, const int xpt[2],
 	int		width;
 	uint8_t	*row;
 
-	if (!img || !img->addr || img->line_len <= 0 || img->byte_depth <= 0)
-		return ;
-	if (y < 0 || y >= img->height)
+	if ((y < 0) || (y >= img->height))
 		return ;
 	start_x = xpt[!(xpt[START] < xpt[END])];
 	end_x = xpt[(xpt[START] < xpt[END])];
