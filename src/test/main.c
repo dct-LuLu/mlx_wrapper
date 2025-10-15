@@ -6,7 +6,7 @@
 /*   By: jaubry-- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 20:12:25 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/10/15 02:07:10 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/10/15 02:21:41 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void	test(t_vec2i pos, t_maction action, void *arg, t_mlx *mlx_data)
 		start_pos = pos;
 	else if (action == MRELEASE)
 	{
-		ft_mlx_line_put(&mlx_data->img, start_pos, pos, 0xFF0000);
+		ft_mlx_aarec(&mlx_data->img, start_pos, pos, 0xFF0000);
 		mlx_put_image_to_window(mlx_data->mlx, mlx_data->win, mlx_data->img.img, 0, 0);
 	}
 	printf("im here %d %d\n", pos.x, pos.y);
