@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 23:08:55 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/10/15 02:32:12 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/10/15 20:48:30 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,9 @@ void	ft_mlx_vline(t_img_data *img, const int ypt[2], const int x,
 
 void	ft_mlx_hline(t_img_data *img, const int xpt[2], const int y,
 			const int color);
+
+void	ft_mlx_select(t_img_data *img, const t_vec2i a,
+		const t_vec2i b, const int color);
 
 void	ft_mlx_aarec(t_img_data *img, const t_vec2i pos_a,
 		const t_vec2i pos_b, const int color);

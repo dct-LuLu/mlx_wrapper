@@ -6,7 +6,7 @@
 #    By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/21 12:21:12 by jaubry--          #+#    #+#              #
-#    Updated: 2025/10/15 02:31:33 by jaubry--         ###   ########.fr        #
+#    Updated: 2025/10/15 20:47:50 by jaubry--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ DRAW_SRCS	= ft_mlx_pixel_put.c \
 			  ft_mlx_batch_put.c \
 			  ft_mlx_circle_put.c \
 			  ft_mlx_draw_quadratic_curve.c \
-			  ft_mlx_aarec.c
+			  ft_mlx_aarec.c \
+			  ft_mlx_select.c
 
 DRAW_SRCS	:= $(addprefix $(DRAW_DIR)/, $(DRAW_SRCS))
 

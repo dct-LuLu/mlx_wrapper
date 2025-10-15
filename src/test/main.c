@@ -6,7 +6,7 @@
 /*   By: jaubry-- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 20:12:25 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/10/15 20:29:35 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/10/16 00:37:25 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@
 #define MIN_CHAR "       '    ,-./0123456789 ; =                             [\\]  `abcdefghijklmnopqrstuvwxyz"
 #define MAX_CHAR "       \"    <_>?)!@#$%^&*( : +                             {|}  ~ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 #define NUMPAD_CHAR "7486293150.          *+ - /"
+
+t_vec2i	start_pos;
+t_vec2i	end_pos;
 
 static char	get_char_input(int keycode, bool maj)
 {
@@ -61,18 +64,24 @@ static bool	is_f1_key(int keycode)
 
 int	loop(t_mlx *mlx_data)
 {
-	ft_mlx_line_put(&mlx_data->img, vec2i(50, 50), vec2i(250, 500), 0xFF0000);
-	(void)mlx_data;
+	ft_mlx_batch_put(&mlx_data->img, vec2i(0, 0), vec2i(WIDTH, HEIGHT), 0x000000);
+	ft_mlx_line_put(&mlx_data->img, vec2i(0, 0), vec2i(WIDTH, HEIGHT), 0xFF0000);
+	if (start_pos.x != 0 && start_pos.y != 0)
+		ft_mlx_select(&mlx_data->img, start_pos, end_pos, 0xFFFFFF);
+	mlx_put_image_to_window(mlx_data->mlx, mlx_data->win, mlx_data->img.img, 0, 0);
 	return (0);
 }
 
-/*
 void	print_mouse_pos(void *v, t_mlx *mlx_data)
 {
 	(void)v;
+	if (start_pos.x != 0 && start_pos.y != 0)
+		end_pos = vec2i(mlx_data->mouse_input.pos.x, mlx_data->mouse_input.pos.y);
+	/*
 	printf("last x: %d,y: %d\t\tcur x: %d, y: %d\n",
 			mlx_data->mouse_input.last_pos.x, mlx_data->mouse_input.last_pos.y,
 			mlx_data->mouse_input.pos.x, mlx_data->mouse_input.pos.y);
+	*/
 }
 
 void	add_mouse_hook(t_mlx *mlx_data)
@@ -84,7 +93,6 @@ void	add_mouse_hook(t_mlx *mlx_data)
 	};
 	vector_add(mlx_data->mouse_input.move_events, (void *)&mouse_event, 1);
 }
-*/
 
 void	switch_focus_state(void *v, t_mlx *mlx_data)
 {
@@ -101,14 +109,16 @@ void	register_errors(void)
 
 void	test(t_vec2i pos, t_maction action, void *arg, t_mlx *mlx_data)
 {
-	static t_vec2i	start_pos;
-
+	(void)mlx_data;
 	if (action == MPRESS)
+	{
 		start_pos = pos;
+		end_pos = pos;
+	}
 	else if (action == MRELEASE)
 	{
-		ft_mlx_aarec(&mlx_data->img, start_pos, pos, 0xFF0000);
-		mlx_put_image_to_window(mlx_data->mlx, mlx_data->win, mlx_data->img.img, 0, 0);
+		start_pos = vec2i(0, 0);
+		end_pos = vec2i(0, 0);
 	}
 	(void)arg;
 }
@@ -129,7 +139,7 @@ int	main(void)
 	add_func_key_hook(mlx_data, is_f1_key, switch_focus_state, NULL);
 	add_func_key_hook(mlx_data, is_char_key,
 			(void (*)(void *, t_mlx *))action_char_input, &(mlx_data->key_input));
-	//add_mouse_hook(mlx_data);
+	add_mouse_hook(mlx_data);
 	add_func_button_hook(mlx_data, MLCLICK, test, NULL);
 	start_mlx_loop(mlx_data, loop, mlx_data);
 	print_errs();
