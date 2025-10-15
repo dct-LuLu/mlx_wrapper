@@ -6,7 +6,7 @@
 /*   By: jaubry-- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 20:12:25 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/10/15 01:23:10 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/10/15 02:07:10 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ static bool	is_f1_key(int keycode)
 
 int	loop(t_mlx *mlx_data)
 {
+	ft_mlx_line_put(&mlx_data->img, vec2i(50, 50), vec2i(250, 500), 0xFF0000);
 	(void)mlx_data;
 	return (0);
 }
@@ -97,8 +98,18 @@ void	register_errors(void)
 	register_mlxw_errors();
 }
 
-void	test(t_vec2i pos, void *arg, t_mlx *mlx_data)
+
+void	test(t_vec2i pos, t_maction action, void *arg, t_mlx *mlx_data)
 {
+	static t_vec2i	start_pos;
+
+	if (action == MPRESS)
+		start_pos = pos;
+	else if (action == MRELEASE)
+	{
+		ft_mlx_line_put(&mlx_data->img, start_pos, pos, 0xFF0000);
+		mlx_put_image_to_window(mlx_data->mlx, mlx_data->win, mlx_data->img.img, 0, 0);
+	}
 	printf("im here %d %d\n", pos.x, pos.y);
 	(void)arg;
 	(void)mlx_data;

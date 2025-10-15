@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 21:26:12 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/10/15 01:23:17 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/10/15 02:04:54 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	button_press(t_mbuttons keycode, int x, int y, t_mlx *mlx_data)
 		if (button_event->keycode == keycode)
 		{
 			if (button_event->action)
-				button_event->action(vec2i(x, y), button_event->arg, mlx_data);
+				button_event->action(vec2i(x, y), MPRESS, button_event->arg, mlx_data);
 			else if (button_event->status)
 				*(button_event->status) = true;
 		}
@@ -45,7 +45,7 @@ static int	button_release(t_mbuttons keycode, int x, int y, t_mlx *mlx_data)
 		if (button_event->keycode == keycode)
 		{
 			if (button_event->action)
-				button_event->action(vec2i(x, y), button_event->arg, mlx_data);
+				button_event->action(vec2i(x, y), MRELEASE, button_event->arg, mlx_data);
 			else if (button_event->status)
 				*(button_event->status) = false;
 		}
@@ -55,7 +55,7 @@ static int	button_release(t_mbuttons keycode, int x, int y, t_mlx *mlx_data)
 }
 
 int	add_func_button_hook(t_mlx *mlx_data, t_mbuttons keycode,
-		void (*action)(t_vec2i, void *, t_mlx *), void *arg)
+		void (*action)(t_vec2i, t_maction, void *, t_mlx *), void *arg)
 {
 	const t_button_event	button_event = (t_button_event)
 	{

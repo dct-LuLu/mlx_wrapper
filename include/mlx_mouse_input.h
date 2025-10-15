@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 02:52:34 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/10/15 01:24:00 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/10/15 02:05:36 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,23 @@ typedef enum e_mbuttons
 	MWHEELDOWN
 }	t_mbuttons;
 
+typedef enum e_maction
+{
+	MNONE = 0,
+	MPRESS,
+	MRELEASE
+}	t_maction;
+
 typedef struct s_button_event
 {
-	void		(*action)(t_vec2i, void *, t_mlx *);
+	void		(*action)(t_vec2i, t_maction, void *, t_mlx *);
 	void		*arg;
 	bool		*status;
 	t_mbuttons	keycode;
 }				t_button_event;
 
 int	add_func_button_hook(t_mlx *mlx_data, t_mbuttons keycode,
-		void (*action)(t_vec2i, void *, t_mlx *), void *arg);
+		void (*action)(t_vec2i, t_maction, void *, t_mlx *), void *arg);
 
 void	update_mouse_focus_state(void *v, t_mlx *mlx_data);
 
