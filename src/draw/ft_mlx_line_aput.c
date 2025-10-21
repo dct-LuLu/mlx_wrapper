@@ -1,20 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_mlx_line_put.c                                  :+:      :+:    :+:   */
+/*   ft_mlx_line_aput.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/07 08:17:29 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/10/21 03:01:01 by jaubry--         ###   ########.fr       */
+/*   Created: 2025/10/21 03:01:25 by jaubry--          #+#    #+#             */
+/*   Updated: 2025/10/21 03:02:11 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mlx_wrapper.h"
 #include <math.h>
 
-
-static inline void	bresenham_h(t_img_data *img, t_vec2i a, t_vec2i b, t_rgb_int color)
+static inline void	bresenham_ha(t_img_data *img, t_vec2i a, t_vec2i b, t_rgba_int color)
 {
 	int	dx;
 	int	dy;
@@ -31,7 +30,7 @@ static inline void	bresenham_h(t_img_data *img, t_vec2i a, t_vec2i b, t_rgb_int 
 	while (a.x <= b.x)
 	{
 		++a.x;
-		ft_mlx_safe_pixel_put(img, a, color);
+		ft_mlx_safe_pixel_aput(img, a, color);
 		if (err >= 0)
 		{
 			a.y += dir;
@@ -41,7 +40,7 @@ static inline void	bresenham_h(t_img_data *img, t_vec2i a, t_vec2i b, t_rgb_int 
 	}
 }
 
-static inline void	bresenham_v(t_img_data *img, t_vec2i a, t_vec2i b, t_rgb_int color)
+static inline void	bresenham_va(t_img_data *img, t_vec2i a, t_vec2i b, t_rgba_int color)
 {
 	int	dx;
 	int	dy;
@@ -58,7 +57,7 @@ static inline void	bresenham_v(t_img_data *img, t_vec2i a, t_vec2i b, t_rgb_int 
 	while (a.y <= b.y)
 	{
 		++a.y;
-		ft_mlx_safe_pixel_put(img, a, color);
+		ft_mlx_safe_pixel_aput(img, a, color);
 		if (err >= 0)
 		{
 			a.x += dir;
@@ -71,21 +70,21 @@ static inline void	bresenham_v(t_img_data *img, t_vec2i a, t_vec2i b, t_rgb_int 
 /*
 	Function that draws a line from point a to point b using a color.
 */
-void	ft_mlx_line_put(t_img_data *img, t_vec2i point_a, t_vec2i point_b, t_rgb_int color)
+void	ft_mlx_line_aput(t_img_data *img, t_vec2i point_a, t_vec2i point_b, t_rgba_int color)
 {
 	if (abs(point_b.y - point_a.y)
 		<= abs(point_b.x - point_a.x))
 	{
 		if (point_b.x < point_a.x)
-			bresenham_h(img, point_b, point_a, color);
+			bresenham_ha(img, point_b, point_a, color);
 		else
-			bresenham_h(img, point_a, point_b, color);
+			bresenham_ha(img, point_a, point_b, color);
 	}
 	else
 	{
 		if (point_b.y < point_a.y)
-			bresenham_v(img, point_b, point_a, color);
+			bresenham_va(img, point_b, point_a, color);
 		else
-			bresenham_v(img, point_a, point_b, color);
+			bresenham_va(img, point_a, point_b, color);
 	}
 }
