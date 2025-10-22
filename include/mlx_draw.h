@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 23:08:55 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/10/21 06:41:55 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/10/22 05:25:08 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ void	ft_mlx_line_put(t_img_data *img, t_vec2i a, t_vec2i b,
 			const t_rgb_int color);
 void	ft_mlx_line_aput(t_img_data *img, t_vec2i a, t_vec2i b,
 			const t_rgba_int color);
+void	ft_mlx_line_aputf(t_img_data *img, t_vec2i p[2],
+			int x, t_rgba_int color);
 
 // Rec draw functions
 
@@ -86,11 +88,15 @@ void	ft_mlx_circle_put(t_img_data *img, const t_vec2i center,
 			const int radius, const t_rgb_int color);
 void	ft_mlx_circle_aput(t_img_data *img, const t_vec2i center,
 			const int radius, const t_rgba_int color);
+void	ft_mlx_safe_circle_aput(t_img_data *img, const t_vec2i center,
+			const int radius, const t_rgba_int color);
 
 void	ft_mlx_quad_curve_put(t_img_data *img, const t_vec2i *pts,
 			const t_rgb_int color);
 void	ft_mlx_quad_curve_aput(t_img_data *img, const t_vec2i *pts,
 			const t_rgba_int color);
+void	ft_mlx_quarter_curve_aput(t_img_data *img, const t_vec2i *pts,
+			const t_vec2i in, const t_rgba_int color);
 
 // Special draw functions
 
@@ -148,6 +154,11 @@ typedef struct s_box
 	t_vec2i		_rt_corner[3];
 	t_vec2i		_lb_corner[3];
 	t_vec2i		_rb_corner[3];
+
+	t_vec2i		_lt_in;
+	t_vec2i		_rt_in;
+	t_vec2i		_lb_in;
+	t_vec2i		_rb_in;
 }				t_box;
 
 int		precompute_box(t_box *box);
