@@ -6,7 +6,7 @@
 /*   By: jaubry-- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 20:12:25 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/10/22 08:58:54 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/10/27 11:24:47 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,13 @@ int	loop(t_mlx *mlx_data)
 		.anchor = CENTER,
 		.size = vec2i_sub(end_pos, start_pos),
 		.color = rgba_int(127, 127, 255, 135),
-		.radius = radius,
+		.radius = (t_radius)
+		{
+			.style = LOCAL_PX,
+			.rt = radius,
+			.lt = 10,
+			.rb = 65
+		},
 		.border = border
 	};
 	precompute_box(&box);

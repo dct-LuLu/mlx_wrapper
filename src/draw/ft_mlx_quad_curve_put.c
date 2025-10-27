@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 15:19:25 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/10/22 08:49:26 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/10/27 07:37:13 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@
 void	ft_mlx_quad_curve_put(t_img_data *img, const t_vec2i *pts,
 			const t_rgb_int color)
 {
-	//const float	curve_length = quad_curve_length(
-	//		pts[START], pts[CTRL], pts[END]);
 	float		t;
 	float		step;
 	t_vec2i		current;
@@ -56,7 +54,6 @@ void	ft_mlx_quad_curve_aput(t_img_data *img, const t_vec2i *pts,
     t_quad stack[64];
     int stack_top = 0;
 
-	printf("border: %d %d %d\n", pts[START].x, pts[CTRL].x, pts[END].x);
     // push initial curve
     stack[stack_top++] = (t_quad)
     {
@@ -97,15 +94,15 @@ void	ft_mlx_quad_curve_aput(t_img_data *img, const t_vec2i *pts,
     }
 }
 
+#define IN 3
 
-void	ft_mlx_quarter_curve_aput(t_img_data *img, const t_vec2i *pts, const t_vec2i in,
+void	ft_mlx_quarter_curve_aput(t_img_data *img, const t_vec2i *pts,
 			const t_rgba_int color)
 {
     typedef struct s_quad { t_vec2 p0, p1, p2; } t_quad;
     t_quad stack[64];
     int stack_top = 0;
 
-	printf("fill: %d %d %d\n", pts[START].x, pts[CTRL].x, pts[END].x);
     // push initial curve
     stack[stack_top++] = (t_quad)
     {
@@ -134,7 +131,7 @@ void	ft_mlx_quarter_curve_aput(t_img_data *img, const t_vec2i *pts, const t_vec2
             	(t_vec2i[2]){
             	vec2i((int)roundf(q.p0.x), (int)roundf(q.p0.y)),
                 vec2i((int)roundf(q.p2.x), (int)roundf(q.p2.y))},
-                in.x, color);
+                pts[IN].x, color);
         }
         else
         {
@@ -145,5 +142,5 @@ void	ft_mlx_quarter_curve_aput(t_img_data *img, const t_vec2i *pts, const t_vec2
             }
         }
     }
-    ft_mlx_hline_aput(img, (int[2]){pts[END].x, in.x}, pts[END].y, color);
+    ft_mlx_hline_aput(img, (int[2]){pts[END].x, pts[IN].x}, pts[END].y, color);
 }

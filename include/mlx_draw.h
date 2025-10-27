@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 23:08:55 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/10/22 05:25:08 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/10/27 10:54:53 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	ft_mlx_quad_curve_put(t_img_data *img, const t_vec2i *pts,
 void	ft_mlx_quad_curve_aput(t_img_data *img, const t_vec2i *pts,
 			const t_rgba_int color);
 void	ft_mlx_quarter_curve_aput(t_img_data *img, const t_vec2i *pts,
-			const t_vec2i in, const t_rgba_int color);
+			const t_rgba_int color);
 
 // Special draw functions
 
@@ -105,7 +105,7 @@ void	ft_mlx_select_put(t_img_data *img, const t_vec2i a, const t_vec2i b,
 
 typedef enum e_border_style
 {
-	NONE = 0,
+	NO_BORDER = 0,
 	SOLID,
 	DASHED
 }	t_border_style;
@@ -130,38 +130,71 @@ typedef enum e_anchor
 	LEFT
 }	t_anchor;
 
+typedef enum e_radius_style
+{
+	NO_RADIUS = 0,
+	FULL_PERCENT,
+	FULL_PX,
+	LOCAL_PERCENT,
+	LOCAL_PX
+}	t_radius_style;
+
+typedef struct s_radius
+{
+	t_radius_style	style;
+	union
+	{
+		uint32_t	_mem;
+		struct
+		{
+			uint8_t	lt;
+			uint8_t	rt;
+			uint8_t	lb;
+			uint8_t	rb;
+		};
+		uint8_t	full;
+	};
+}	t_radius;
+
+typedef struct s_corner
+{
+	union
+	{
+		struct
+		{
+			t_vec2i	horz;
+			t_vec2i	corner;
+			t_vec2i	vert;
+			t_vec2i	in;
+		};
+		t_vec2i		_mem[4];
+		t_vec2i		_mem3[3];
+	};
+	t_vec2i	xrec[2];
+	t_vec2i	mrec[2];
+}	t_corner;
+
 typedef struct s_box
 {
 	t_vec2i		pos;
 	t_anchor	anchor;
 	t_vec2i		size;
 	t_rgba_int	color;
-	uint8_t		radius;// percentage
+	t_radius	radius;
 	t_border	border;
 
-	t_vec2i		_lt;// program defined, LT corner
-	t_vec2i		_rt;
-	t_vec2i		_lb;
-	t_vec2i		_rb;
-	
+	// program defined
 	t_vec2		_half_size;
-	t_vec2		_quartile_size;
-	
-	t_vec2		_x_quartile;
-	t_vec2		_y_quartile;
-
-	t_vec2i		_lt_corner[3];
-	t_vec2i		_rt_corner[3];
-	t_vec2i		_lb_corner[3];
-	t_vec2i		_rb_corner[3];
-
-	t_vec2i		_lt_in;
-	t_vec2i		_rt_in;
-	t_vec2i		_lb_in;
-	t_vec2i		_rb_in;
+	t_vec2i		_mid;
+	t_corner	_lt;
+	t_corner	_rt;
+	t_corner	_lb;
+	t_corner	_rb;
 }				t_box;
 
+void	precompute_box_radius(t_box *box);
 int		precompute_box(t_box *box);
+void	draw_border(t_img_data *img, t_box box);
 void	draw_box(t_img_data *img, t_box box);
 
 #endif//MLX_DRAW_H
