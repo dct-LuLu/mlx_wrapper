@@ -1,26 +1,26 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    mouse.mk                                           :+:      :+:    :+:    #
+#    box.mk                                             :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+         #
+#    By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/09/08 02:51:32 by jaubry--          #+#    #+#              #
-#    Updated: 2025/10/14 23:48:45 by jaubry--         ###   ########.fr        #
+#    Created: 2025/10/27 10:09:04 by jaubry--          #+#    #+#              #
+#    Updated: 2025/10/27 10:10:35 by jaubry--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Directories
-MOUSE_DIR	= $(SRCDIR)/mouse
+BOX_DIR		= $(DRAW_DIR)/box
 
 # Source files
-MOUSE_SRCS	= mouse.c \
-			  mouse_button.c \
-			  mouse_movement.c
+BOX_SRCS	= precompute_box.c \
+			  precompute_radius.c \
+			  draw_border.c \
+			  draw_box.c
+BOX_SRCS	:= $(addprefix $(BOX_DIR)/, $(BOX_SRCS))
 
-MOUSE_SRCS	:= $(addprefix $(MOUSE_DIR)/, $(MOUSE_SRCS))
-
-SRCS			+= $(MOUSE_SRCS)
+SRCS		+= $(BOX_SRCS)
 
 # VPATH
-vpath %.c $(MOUSE_DIR)
+vpath %.c $(BOX_DIR)

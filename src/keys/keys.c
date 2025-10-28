@@ -6,7 +6,7 @@
 /*   By: jaubry-- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 23:08:29 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/10/11 20:24:52 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/10/15 01:31:00 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,17 +110,17 @@ static int	setup_special_key_events(t_mlx *mlx_data)
 {
 	if (add_status_key_hook(mlx_data, is_ctrl_key, false,
 			&(mlx_data->key_input.ctrl)) != 0)
-		return (error(pack_err(MLXW_ID, MLXW_E_KEY), FL, LN, FC));
+		return (error(pack_err(MLXW_ID, MLXW_E_EVENTH), FL, LN, FC));
 	if (add_status_key_hook(mlx_data, is_shift_key, false,
 			&(mlx_data->key_input.shift)) != 0)
-		return (error(pack_err(MLXW_ID, MLXW_E_KEY), FL, LN, FC));
+		return (error(pack_err(MLXW_ID, MLXW_E_EVENTH), FL, LN, FC));
 	if (add_status_key_hook(mlx_data, is_caps_key, true,
 			&(mlx_data->key_input.caps)) != 0)
-		return (error(pack_err(MLXW_ID, MLXW_E_KEY), FL, LN, FC));
+		return (error(pack_err(MLXW_ID, MLXW_E_EVENTH), FL, LN, FC));
 	if (add_func_key_hook(mlx_data, is_escape_key, mlx_exit, NULL) != 0)
-		return (error(pack_err(MLXW_ID, MLXW_E_KEY), FL, LN, FC));
+		return (error(pack_err(MLXW_ID, MLXW_E_EVENTH), FL, LN, FC));
 	if (add_func_key_hook(mlx_data, is_f11_key, ft_mlx_fullscreen_toggle, NULL) != 0)
-		return (error(pack_err(MLXW_ID, MLXW_E_KEY), FL, LN, FC));
+		return (error(pack_err(MLXW_ID, MLXW_E_EVENTH), FL, LN, FC));
 	return (0);
 }
 
