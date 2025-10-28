@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 07:15:49 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/10/27 11:25:54 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/10/28 00:23:51 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ static inline void	precompute_corner_radius(t_box *box)
 
 static inline void	precompute_xrec(t_box *box, t_corner *corner)
 {
-	//janky af
 	corner->xrec[0] = vec2i(
 			min(corner->in.x, box->_mid.x) + 1,
 			min(corner->in.y, corner->corner.y)
@@ -79,7 +78,6 @@ static inline void	precompute_mrec(t_box *box, t_corner *corner)
 			max(corner->vert.y - 1, box->_mid.y)
 			);
 }
-
 
 static inline void	precompute_in_rec(t_box *box)
 {
