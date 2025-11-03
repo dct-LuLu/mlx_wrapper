@@ -6,7 +6,7 @@
 #    By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/21 12:21:12 by jaubry--          #+#    #+#              #
-#    Updated: 2025/10/27 10:11:10 by jaubry--         ###   ########.fr        #
+#    Updated: 2025/11/03 19:34:05 by jaubry--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,8 +30,6 @@ DRAW_SRCS	= ft_mlx_pixel_put.c \
 DRAW_SRCS	:= $(addprefix $(DRAW_DIR)/, $(DRAW_SRCS))
 
 SRCS			+= $(DRAW_SRCS)
-
-include $(DRAW_DIR)/box/box.mk
 
 # VPATH
 vpath %.c $(DRAW_DIR)
