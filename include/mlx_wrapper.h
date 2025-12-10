@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 12:09:17 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/09/09 01:48:35 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/10 01:07:49 by pabellis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,14 +64,22 @@
 
 typedef struct s_img_data
 {
+	char			*name;
 	t_img			*img;
-	int				*addr;
+	union
+	{
+		unsigned char	*pixel;	
+		int				*addr;
+	};
 	int				byte_depth;
+	int				tex_bpp;
 	int				line_len;
 	int				endian;
 	int				width;
 	int				height;//to change
 }					t_img_data;
+
+typedef struct s_img_data t_texture;
 
 /*		 Future implementation
 typedef struct s_win
