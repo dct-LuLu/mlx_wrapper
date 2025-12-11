@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 08:26:41 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/10/15 01:28:48 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/11 07:08:09 by pabellis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static inline int	init_img_data(t_img_data *img_data, t_xvar *mlx,
 	if (!img_data->img)
 		return (-1);
 	img_data->addr = (int *)mlx_get_data_addr(img_data->img,
-			&img_data->byte_depth, &img_data->line_len, &img_data->endian);
+			&img_data->byte_depth, &img_data->line_len, &img_data->width);
 	img_data->byte_depth /= 8;
 	img_data->width = width;
 	img_data->height = height;
