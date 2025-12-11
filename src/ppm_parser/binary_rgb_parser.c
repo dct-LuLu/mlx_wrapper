@@ -6,7 +6,7 @@
 /*   By: pabellis <pabellis@student.forty2.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/26 01:43:53 by pabellis          #+#    #+#             */
-/*   Updated: 2025/12/09 16:13:36 by pabellis         ###   ########.fr       */
+/*   Updated: 2025/12/11 06:51:00 by pabellis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	get_rgb_data(int fd, t_texture *tex);
 
 t_texture	*ppm_parser(const int fd, t_texture *tex)
 {
-	if (check_header(fd, &tex->width, &tex->height, &tex->tex_bpp) == -1)
+	if (check_header(fd, &tex->width, &tex->height, &tex->byte_depth) == -1)
 		return (NULL);
 	if (get_rgb_data(fd, tex) == -1)
 		return (NULL);
@@ -31,7 +31,7 @@ static int	get_rgb_data(const int fd, t_texture *tex)
 
 	size = (ssize_t) tex->width * (size_t) tex->height * 3;
 	tex->line_len = tex->width * 3;
-	tex->tex_bpp = 24;
+	tex->byte_depth = 3;
 	tex->addr = malloc(size);
 	if (!tex->addr)
 		return (-1);

@@ -6,7 +6,7 @@
 /*   By: pabellis <pabellis@student.forty2.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/26 02:11:10 by pabellis          #+#    #+#             */
-/*   Updated: 2025/12/09 16:15:09 by pabellis         ###   ########.fr       */
+/*   Updated: 2025/12/11 06:51:24 by pabellis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	get_binary_data(int fd, t_texture *tex);
 
 t_texture	*pgm_parser(const int fd, t_texture *tex)
 {
-	if (check_header(fd, &tex->width, &tex->height, &tex->tex_bpp) == -1)
+	if (check_header(fd, &tex->width, &tex->height, &tex->byte_depth) == -1)
 		return (NULL);
 	if (get_binary_data(fd, tex) == -1)
 		return (NULL);
@@ -31,7 +31,7 @@ int	get_binary_data(int fd, t_texture *tex)
 
 	size = (ssize_t) tex->width * (size_t) tex->height;
 	tex->line_len = tex->width;
-	tex->tex_bpp = 8;
+	tex->byte_depth = 1;
 	tex->addr = malloc(size);
 	if (!tex->addr)
 		return (-1);
