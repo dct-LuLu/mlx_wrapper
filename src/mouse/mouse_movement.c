@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 21:23:52 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/10/14 21:26:41 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/11/27 04:18:15 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,15 @@ void	update_mouse_focus_state(void *v, t_mlx *mlx_data)
 
 static void	mouse_move_action(t_mlx *mlx_data)
 {
-	t_mouse_event	*mouse_event;
+	t_move_event	*move_event;
 	size_t			i;
 
 	i = 0;
 	while (i < mlx_data->mouse_input.move_events->num_elements)
 	{
-		mouse_event = get_vector_value(mlx_data->mouse_input.move_events, i);
-		if (mouse_event->action)
-			mouse_event->action(mouse_event->arg, mlx_data);
+		move_event = get_vector_value(mlx_data->mouse_input.move_events, i);
+		if (move_event->action)
+			move_event->action(move_event->arg, mlx_data);
 		i++;
 	}
 }
@@ -74,12 +74,24 @@ static int	mouse_move(int x, int y, t_mlx *mlx_data)
 	return (0);
 }
 
+int	add_func_move_hook(t_mlx *mlx_data, void (*action)(void *, t_mlx *), void *arg)
+{
+	const t_move_event	move_event = (t_move_event)
+	{
+		.action = action,
+		.arg = arg
+	};
+	if (vector_add(mlx_data->mouse_input.move_events, (void *)&move_event, 1) == -1)
+		return (error(pack_err(LFT_ID, LFT_E_VEC_ADD), FL, LN, FC));
+	return (0);
+}
+
 int	setup_mouse_movement(t_mlx *mlx_data)
 {
 	mlx_data->mouse_input.move_events = ft_calloc(1, sizeof(t_vector));
 	if (!mlx_data->mouse_input.move_events)
 		return (-1);
-	vector_init(mlx_data->mouse_input.move_events, sizeof(t_mouse_event));
+	vector_init(mlx_data->mouse_input.move_events, sizeof(t_move_event));
 	mlx_hook(mlx_data->win, MotionNotify,
 			PointerMotionMask, mouse_move, mlx_data);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 23:08:55 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/10/30 18:35:34 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/11/03 19:33:53 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ void	ft_mlx_circle_put(t_img_data *img, const t_vec2i center,
 			const int radius, const t_rgb_int color);
 void	ft_mlx_circle_aput(t_img_data *img, const t_vec2i center,
 			const int radius, const t_rgba_int color);
+void	ft_mlx_safe_circle_put(t_img_data *img, const t_vec2i center,
+			const int radius, const t_rgb_int color);
 void	ft_mlx_safe_circle_aput(t_img_data *img, const t_vec2i center,
 			const int radius, const t_rgba_int color);
 

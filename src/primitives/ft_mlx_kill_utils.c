@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 12:11:45 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/09/09 10:58:29 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/10/29 00:30:33 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,11 @@ static void	free_events(t_mlx *mlx_data)
 	{
 		free_vector(mlx_data->mouse_input.move_events);
 		free(mlx_data->mouse_input.move_events);
+	}
+	if (mlx_data->mouse_input.button_events)
+	{
+		free_vector(mlx_data->mouse_input.button_events);
+		free(mlx_data->mouse_input.button_events);
 	}
 }
 
