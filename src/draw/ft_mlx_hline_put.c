@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 02:24:53 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/10/29 04:56:13 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/20 22:22:27 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	ft_mlx_hline_put(t_img_data *img, const int xpt[2],
 		return ;
 	row = (uint8_t *)img->addr
 		+ (size_t)y * (size_t)img->line_len
-		+ (size_t)start_x * (size_t)img->byte_depth;
+		+ (size_t)start_x * (size_t)img->channels;
 	ft_mlx_spanh((uint32_t *)row, width, color);
 }
 
@@ -114,6 +114,6 @@ void	ft_mlx_hline_aput(t_img_data *img, const int xpt[2],
 		return ;
 	row = (uint8_t *)img->addr
 		+ (size_t)y * (size_t)img->line_len
-		+ (size_t)start_x * (size_t)img->byte_depth;
+		+ (size_t)start_x * (size_t)img->channels;
 	ft_mlx_aspanh((uint32_t *)row, width, color);
 }

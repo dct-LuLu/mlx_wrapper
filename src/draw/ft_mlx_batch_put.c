@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 01:06:14 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/10/21 00:03:33 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/20 22:23:11 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_mlx_batch_put(t_img_data *img, const t_vec2i pos,
 	unsigned int	*pixels;
 	size_t			i;
 
-	offset = ((pos.y * img->line_len) + (pos.x * img->byte_depth));
+	offset = ((pos.y * img->line_len) + (pos.x * img->channels));
 	pixels = (unsigned int *)(img->addr + offset);
 	x = 0;
 	while (x < size.x)
@@ -29,7 +29,7 @@ void	ft_mlx_batch_put(t_img_data *img, const t_vec2i pos,
 		y = 0;
 		while (y < size.y)
 		{
-			i = x + y * img->line_len / img->byte_depth;
+			i = x + y * img->width;
 			pixels[i] = color.rgb;
 			y++;
 		}
@@ -46,7 +46,7 @@ void	ft_mlx_batch_aput(t_img_data *img, const t_vec2i pos,
 	unsigned int	*pixels;
 	size_t			i;
 
-	offset = ((pos.y * img->line_len) + (pos.x * img->byte_depth));
+	offset = ((pos.y * img->line_len) + (pos.x * img->channels));
 	pixels = (unsigned int *)(img->addr + offset);
 	x = 0;
 	while (x < size.x)
@@ -54,7 +54,7 @@ void	ft_mlx_batch_aput(t_img_data *img, const t_vec2i pos,
 		y = 0;
 		while (y < size.y)
 		{
-			i = x + y * img->line_len / img->byte_depth;
+			i = x + y * img->width;
 			pixels[i] = ft_blend_raw_colors(pixels[i], color).rgb;
 			y++;
 		}

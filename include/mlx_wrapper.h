@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 12:09:17 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/11 07:06:06 by pabellis         ###   ########.fr       */
+/*   Updated: 2025/12/20 22:30:51 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,34 +68,27 @@ typedef struct s_img_data
 	t_img			*img;
 	union
 	{
-		unsigned char	*pixel;	
-		int				*addr;
+		unsigned int	*addr;
+		uint8_t			*pixels;
 	};
-	int				byte_depth;
-	int				line_len;
-	int				width;
-	int				height;
+	uint8_t			bit_depth;
+	uint8_t			channels;
+	ssize_t			line_len;
+	ssize_t			width;
+	ssize_t			height;
 }					t_img_data;
 
 typedef struct s_img_data t_texture;
 
-/*		 Future implementation
-typedef struct s_win
-{
-	t_win_list		*win;
-	t_img_daa		img;
-	t_vec2i			origin;
-	t_vec2i			size;
-	t_vec2i			half_size;
-	bool			fullscreen;
-}					t_win;
-*/
-
+t_texture	*pnm_parser(const int fd, t_texture *tex);
+t_texture	*parse_pbm(const int fd, t_texture *tex);
+t_texture	*parse_pgm(const int fd, t_texture *tex);
+t_texture	*parse_ppm(const int fd, t_texture *tex);
+t_texture	*parse_pam(const int fd, t_texture *tex);
 
 typedef struct s_mlx
 {
 	t_xvar			*mlx;
-//	t_win			*wins;
 	t_key_input		key_input;
 	t_mouse_input	mouse_input;
 	t_win_list		*win;

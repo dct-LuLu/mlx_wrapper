@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 23:08:55 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/11/03 19:33:53 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/20 23:04:16 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,20 @@ void	ft_mlx_quad_curve_aput(t_img_data *img, const t_vec2i *pts,
 			const t_rgba_int color);
 void	ft_mlx_quarter_curve_aput(t_img_data *img, const t_vec2i *pts,
 			const t_rgba_int color);
+
+// Images draw functions
+
+void	ft_mlx_img_put(t_img_data *mlx_img, const t_vec2i pos,
+			t_img_data *img);
+
+void	ft_mlx_img_aput(t_img_data *mlx_img, const t_vec2i pos,
+			t_img_data *img);
+
+void	ft_mlx_safe_img_put(t_img_data *mlx_img, const t_vec2i pos,
+			t_img_data *img);
+
+void	ft_mlx_safe_img_aput(t_img_data *mlx_img, const t_vec2i pos,
+			t_img_data *img);
 
 // Special draw functions
 

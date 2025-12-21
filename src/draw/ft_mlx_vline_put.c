@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 02:26:18 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/10/22 00:57:11 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/20 22:21:58 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	ft_mlx_vline_put(t_img_data *img, const int ypt[2],
 		return ;
 	p = (uint8_t *)img->addr
 		+ (size_t)start_y * (size_t)img->line_len
-		+ (size_t)x * (size_t)img->byte_depth;
+		+ (size_t)x * (size_t)img->channels;
 	ft_mlx_spanv(img, p, height, color);
 }
 
@@ -113,6 +113,6 @@ void	ft_mlx_vline_aput(t_img_data *img, const int ypt[2],
 		return ;
 	p = (uint8_t *)img->addr
 		+ (size_t)start_y * (size_t)img->line_len
-		+ (size_t)x * (size_t)img->byte_depth;
+		+ (size_t)x * (size_t)img->channels;
 	ft_mlx_aspanv(img, p, height, color);
 }

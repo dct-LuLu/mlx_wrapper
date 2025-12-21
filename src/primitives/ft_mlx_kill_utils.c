@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 12:11:45 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/10/29 00:30:33 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/20 22:26:46 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void	kill_img(t_xvar *mlx, t_img_data *img)
 	}
 	if (img->addr)
 		img->addr = NULL;
-	img->byte_depth = 0;
+	img->channels = 0;
 	img->width = 0;
 	img->height = 0;
 }
