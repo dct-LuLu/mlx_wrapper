@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 02:26:18 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/20 22:21:58 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/22 01:27:08 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,19 +75,19 @@ static inline void	ft_mlx_aspanv(t_img_data *img, uint8_t *p,
 	n = height >> 2;
 	while (n--)
 	{
-		*(uint32_t *)(p) = ft_blend_raw_colors(*(uint32_t *)(p), color).rgb;
+		*(uint32_t *)(p) = ft_blend_raw_colors(*(uint32_t *)(p), color).rgba;
 		p += img->line_len;
-		*(uint32_t *)(p) = ft_blend_raw_colors(*(uint32_t *)(p), color).rgb;
+		*(uint32_t *)(p) = ft_blend_raw_colors(*(uint32_t *)(p), color).rgba;
 		p += img->line_len;
-		*(uint32_t *)(p) = ft_blend_raw_colors(*(uint32_t *)(p), color).rgb;
+		*(uint32_t *)(p) = ft_blend_raw_colors(*(uint32_t *)(p), color).rgba;
 		p += img->line_len;
-		*(uint32_t *)(p) = ft_blend_raw_colors(*(uint32_t *)(p), color).rgb;
+		*(uint32_t *)(p) = ft_blend_raw_colors(*(uint32_t *)(p), color).rgba;
 		p += img->line_len;
 	}
 	rem = height & 3;
 	while (rem--)
 	{
-		*(uint32_t *)(p) = ft_blend_raw_colors(*(uint32_t *)(p), color).rgb;
+		*(uint32_t *)(p) = ft_blend_raw_colors(*(uint32_t *)(p), color).rgba;
 		p += img->line_len;
 	}
 }

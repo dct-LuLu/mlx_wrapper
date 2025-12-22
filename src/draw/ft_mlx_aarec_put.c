@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 21:54:03 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/10/21 00:09:54 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/22 01:25:41 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ void	ft_mlx_aarec_put(t_img_data *img, const t_vec2i a,
 		x[VAL] = x[MIN];
 		while (x[VAL] <= x[MAX])
 		{
-			if ((x[VAL] >= 0) && (x[VAL] < WIDTH)
-				&& (y[VAL] >= 0) && (y[VAL] < HEIGHT))
-				img->addr[(y[VAL] * WIDTH) + x[VAL]] = c.rgb;
+			if ((x[VAL] >= 0) && (x[VAL] < img->width)
+				&& (y[VAL] >= 0) && (y[VAL] < img->height))
+				img->addr[(y[VAL] * img->width) + x[VAL]] = c.rgb;
 			x[VAL]++;
 		}
 		y[VAL]++;
@@ -61,10 +61,10 @@ void	ft_mlx_aarec_aput(t_img_data *img, const t_vec2i a,
 		x[VAL] = x[MIN];
 		while (x[VAL] <= x[MAX])
 		{
-			if ((x[VAL] >= 0) && (x[VAL] < WIDTH)
-				&& (y[VAL] >= 0) && (y[VAL] < HEIGHT))
-				img->addr[(y[VAL] * WIDTH) + x[VAL]] = ft_blend_raw_colors(
-						img->addr[(y[VAL] * WIDTH) + x[VAL]], c).rgb;
+			if ((x[VAL] >= 0) && (x[VAL] < img->width)
+				&& (y[VAL] >= 0) && (y[VAL] < img->height))
+				img->addr[(y[VAL] * img->width) + x[VAL]] = ft_blend_raw_colors(
+						img->addr[(y[VAL] * img->width) + x[VAL]], c).rgba;
 			x[VAL]++;
 		}
 		y[VAL]++;

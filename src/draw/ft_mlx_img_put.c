@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/20 22:41:58 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/21 01:47:53 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/22 00:29:12 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_mlx_img_put(t_img_data *mlx_img, const t_vec2i pos, t_img_data *img)
 {
 	t_vec2i		cur_pos;
-	t_rgb_int	color;
+	t_rgba_int	color;
 	ssize_t		x;
 	ssize_t		y;
 	size_t		offset;
@@ -31,7 +31,9 @@ void	ft_mlx_img_put(t_img_data *mlx_img, const t_vec2i pos, t_img_data *img)
 			color.r = img->pixels[offset];
 			color.g = img->pixels[offset + 1];
 			color.b = img->pixels[offset + 2];
-			ft_mlx_pixel_put(mlx_img, cur_pos, color);
+			if (mlx_img->channels == 4)
+				color.a = 255;
+			ft_mlx_pixel_aput(mlx_img, cur_pos, color);
 			x++;
 		}
 		y++;
@@ -69,7 +71,7 @@ void	ft_mlx_safe_img_put(t_img_data *mlx_img, const t_vec2i pos,
 		t_img_data *img)
 {
 	t_vec2i		cur_pos;
-	t_rgb_int	color;
+	t_rgba_int	color;
 	ssize_t		x;
 	ssize_t		y;
 	size_t		offset;
@@ -85,7 +87,9 @@ void	ft_mlx_safe_img_put(t_img_data *mlx_img, const t_vec2i pos,
 			color.r = img->pixels[offset];
 			color.g = img->pixels[offset + 1];
 			color.b = img->pixels[offset + 2];
-			ft_mlx_safe_pixel_put(mlx_img, cur_pos, color);
+			if (mlx_img->channels == 4)
+				color.a = 255;
+			ft_mlx_safe_pixel_aput(mlx_img, cur_pos, color);
 			x++;
 		}
 		y++;

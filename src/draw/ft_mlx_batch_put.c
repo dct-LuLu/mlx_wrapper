@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 01:06:14 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/20 22:23:11 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/22 01:25:46 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ void	ft_mlx_batch_put(t_img_data *img, const t_vec2i pos,
 	int				x;
 	int				y;
 	int				offset;
-	unsigned int	*pixels;
+	uint32_t		*pixels;
 	size_t			i;
 
 	offset = ((pos.y * img->line_len) + (pos.x * img->channels));
-	pixels = (unsigned int *)(img->addr + offset);
+	pixels = (uint32_t *)(img->pixels + offset);
 	x = 0;
 	while (x < size.x)
 	{
@@ -43,11 +43,11 @@ void	ft_mlx_batch_aput(t_img_data *img, const t_vec2i pos,
 	int				x;
 	int				y;
 	int				offset;
-	unsigned int	*pixels;
+	uint32_t		*pixels;
 	size_t			i;
 
 	offset = ((pos.y * img->line_len) + (pos.x * img->channels));
-	pixels = (unsigned int *)(img->addr + offset);
+	pixels = (uint32_t *)(img->pixels + offset);
 	x = 0;
 	while (x < size.x)
 	{
@@ -55,7 +55,7 @@ void	ft_mlx_batch_aput(t_img_data *img, const t_vec2i pos,
 		while (y < size.y)
 		{
 			i = x + y * img->width;
-			pixels[i] = ft_blend_raw_colors(pixels[i], color).rgb;
+			pixels[i] = ft_blend_raw_colors(pixels[i], color).rgba;
 			y++;
 		}
 		x++;
