@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 21:23:52 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/11/27 04:18:15 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/23 20:36:55 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,22 @@ static void	mouse_move_focus(t_mlx *mlx_data)
 {
 	mlx_data->mouse_input.warped = true;
 	mlx_mouse_move(mlx_data->mlx, mlx_data->win,
-			mlx_data->half_size.x, mlx_data->half_size.y);
+		mlx_data->half_size.x, mlx_data->half_size.y);
 	XFlush(mlx_data->mlx->display);
 	mlx_data->mouse_input.last_pos = mlx_data->half_size;
 }
 
 void	update_mouse_focus_state(void *v, t_mlx *mlx_data)
 {
-	bool	focus_mode = mlx_data->mouse_input.focus;
+	const bool	focus_mode = mlx_data->mouse_input.focus;
 
 	(void)v;
 	if (focus_mode)
 	{
 		mlx_mouse_hide(mlx_data->mlx, mlx_data->win);
 		XGrabPointer(mlx_data->mlx->display, mlx_data->win->window,
-				True, PointerMotionMask, GrabModeAsync, GrabModeAsync,
-				None, None, CurrentTime);
+			True, PointerMotionMask, GrabModeAsync, GrabModeAsync,
+			None, None, CurrentTime);
 		mlx_data->mouse_input.pos = mlx_data->half_size;
 		mouse_move_focus(mlx_data);
 	}
@@ -74,18 +74,6 @@ static int	mouse_move(int x, int y, t_mlx *mlx_data)
 	return (0);
 }
 
-int	add_func_move_hook(t_mlx *mlx_data, void (*action)(void *, t_mlx *), void *arg)
-{
-	const t_move_event	move_event = (t_move_event)
-	{
-		.action = action,
-		.arg = arg
-	};
-	if (vector_add(mlx_data->mouse_input.move_events, (void *)&move_event, 1) == -1)
-		return (error(pack_err(LFT_ID, LFT_E_VEC_ADD), FL, LN, FC));
-	return (0);
-}
-
 int	setup_mouse_movement(t_mlx *mlx_data)
 {
 	mlx_data->mouse_input.move_events = ft_calloc(1, sizeof(t_vector));
@@ -93,6 +81,6 @@ int	setup_mouse_movement(t_mlx *mlx_data)
 		return (-1);
 	vector_init(mlx_data->mouse_input.move_events, sizeof(t_move_event));
 	mlx_hook(mlx_data->win, MotionNotify,
-			PointerMotionMask, mouse_move, mlx_data);
+		PointerMotionMask, mouse_move, mlx_data);
 	return (0);
 }

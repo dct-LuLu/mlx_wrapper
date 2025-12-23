@@ -6,9 +6,11 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/23 20:30:55 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/23 20:31:14 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/23 20:37:22 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "mlx_wrapper.h"
 
 static inline void	ft_mlx_fullscreen_toggle(void *v, t_mlx *mlx_data)
 {
