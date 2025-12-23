@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/20 22:41:58 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/22 00:29:12 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/23 00:57:45 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ void	ft_mlx_img_aput(t_img_data *mlx_img, const t_vec2i pos, t_img_data *img)
 		{
 			cur_pos = vec2i(pos.x + x, pos.y + y);
 			offset = y * img->line_len + x * img->channels;
-			color.r = img->pixels[offset];
+			color.b = img->pixels[offset + 0];
 			color.g = img->pixels[offset + 1];
-			color.b = img->pixels[offset + 2];
+			color.r = img->pixels[offset + 2];
 			color.a = img->pixels[offset + 3];
 			ft_mlx_pixel_aput(mlx_img, cur_pos, color);
 			x++;
@@ -113,9 +113,9 @@ void	ft_mlx_safe_img_aput(t_img_data *mlx_img, const t_vec2i pos,
 		{
 			cur_pos = vec2i(pos.x + x, pos.y + y);
 			offset = y * img->line_len + x * img->channels;
-			color.r = img->pixels[offset];
+			color.b = img->pixels[offset + 0];
 			color.g = img->pixels[offset + 1];
-			color.b = img->pixels[offset + 2];
+			color.r = img->pixels[offset + 2];
 			color.a = img->pixels[offset + 3];
 			ft_mlx_safe_pixel_aput(mlx_img, cur_pos, color);
 			x++;
