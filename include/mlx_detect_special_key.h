@@ -6,7 +6,7 @@
 /*   By: jaubry-- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 05:04:33 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/09/08 23:17:39 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/23 19:10:25 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,6 @@
 # define MLX_DETECT_SPECIAL_KEY_H
 # include <stdbool.h>
 # include <X11/keysym.h>
-
-static inline bool	is_tab_key(const int keycode)
-{
-	return (keycode == XK_Tab);
-}
 
 static inline bool	is_enter_key(const int keycode)
 {

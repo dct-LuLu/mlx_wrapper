@@ -6,7 +6,7 @@
 /*   By: jaubry-- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 05:00:11 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/09/08 23:18:01 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/23 19:11:59 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ static inline bool	is_space_key(const int keycode)
 
 static inline bool	is_tkl_char_key(const int keycode)
 {
-	 return (is_tkl_alpha_key(keycode) || is_tkl_special_key(keycode)
-	 		 || is_space_key(keycode));
+	return (is_tkl_alpha_key(keycode) || is_tkl_special_key(keycode)
+		|| is_space_key(keycode));
 }
 
 #endif//MLX_DETECT_TKL_KEY_H

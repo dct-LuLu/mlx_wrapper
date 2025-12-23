@@ -6,7 +6,7 @@
 /*   By: jaubry-- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 05:01:28 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/09/08 23:17:22 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/23 19:09:52 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@ static inline bool	is_numpad_num_key(const int keycode)
 
 static inline bool	is_numpad_special_key(const int keycode)
 {
-	return ((keycode == XK_KP_Multiply) || (keycode == XK_KP_Add) || (keycode == XK_KP_Subtract)
-			|| (keycode == XK_KP_Decimal) || (keycode == XK_KP_Divide) || (keycode == XK_KP_Delete));
+	return ((keycode == XK_KP_Multiply) || (keycode == XK_KP_Add)
+		|| (keycode == XK_KP_Subtract) || (keycode == XK_KP_Decimal)
+		|| (keycode == XK_KP_Divide) || (keycode == XK_KP_Delete));
 }
 
 static inline bool	is_numpad_char_key(const int keycode)

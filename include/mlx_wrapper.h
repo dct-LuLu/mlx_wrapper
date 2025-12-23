@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 12:09:17 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/20 22:30:51 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/23 19:14:58 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ typedef struct s_img_data
 	ssize_t			height;
 }					t_img_data;
 
-typedef struct s_img_data t_texture;
+typedef struct s_img_data	t_texture;
 
 t_texture	*pnm_parser(const int fd, t_texture *tex);
 t_texture	*parse_pbm(const int fd, t_texture *tex);
@@ -104,13 +104,13 @@ typedef struct s_mlx
 	size_t			fps;
 }					t_mlx;
 
-t_mlx	*init_mlx(const int width, const int height, char *title);
+t_mlx		*init_mlx(const int width, const int height, char *title);
 
-void	kill_mlx(t_mlx *mlx);
+void		kill_mlx(t_mlx *mlx);
 
-void 	start_mlx_loop(t_mlx *mlx, int (*loop)(), void *data);
+void		start_mlx_loop(t_mlx *mlx, int (*loop)(), void *data);
 
-void	ft_mlx_center_window(t_mlx *mlx_data);
+void		ft_mlx_center_window(t_mlx *mlx_data);
 
 typedef struct MotifWmHints
 {
@@ -121,8 +121,8 @@ typedef struct MotifWmHints
 	unsigned long	status;
 }					t_MotifWmHints;
 
-int		mlx_ext_fullscreen(t_xvar *xvar, t_win_list *win, int fullscreen);
+int			mlx_ext_fullscreen(t_xvar *xvar, t_win_list *win, int fullscreen);
 
-void	ft_disable_decorations(Display *d, Window w);
+void		ft_disable_decorations(Display *d, Window w);
 
 #endif // MLX_WRAPPER_H

@@ -6,7 +6,7 @@
 /*   By: jaubry-- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 05:02:16 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/09/08 23:18:42 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/23 19:09:36 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 static inline bool	is_char_key(const int keycode)
 {
 	return (is_tkl_char_key(keycode) || is_numpad_char_key(keycode)
-			|| is_enter_key(keycode) || is_tab_key(keycode));
+		|| is_enter_key(keycode) || is_tab_key(keycode));
 }
 
 #endif//MLX_DETECT_KEY_H
