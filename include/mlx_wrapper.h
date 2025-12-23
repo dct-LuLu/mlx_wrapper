@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 12:09:17 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/23 19:14:58 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/23 20:38:41 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,13 @@ typedef struct s_mlx
 	size_t			generation;
 	size_t			fps;
 }					t_mlx;
+
+typedef struct s_loop_wrap
+{
+	int		(*loop)();
+	void	*data;
+	t_mlx	*mlx;	
+}	t_loop_wrap;
 
 t_mlx		*init_mlx(const int width, const int height, char *title);
 
