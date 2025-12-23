@@ -1,61 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_mlx_quad_curve_put.c                            :+:      :+:    :+:   */
+/*   ft_mlx_quarter_curve_put.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/26 15:19:25 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/23 20:22:16 by jaubry--         ###   ########.fr       */
+/*   Created: 2025/12/23 19:59:57 by jaubry--          #+#    #+#             */
+/*   Updated: 2025/12/23 20:24:38 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mlx_wrapper.h"
 
-#define MAX_STEP	0.05f
-#define MIN_STEP	0.001f
-
 #define START	0
 #define CTRL	1
 #define END		2
+#define IN 		3
 
-void	ft_mlx_quad_curve_put(t_img_data *img, const t_vec2i *pts,
-			const t_rgb_int color)
-{
-	float		t;
-	float		step;
-	t_vec2i		current;
-	t_vec2i		previous;
-	const int	curvature = abs(pts[START].x - 2 * pts[CTRL].x + pts[END].x)
-		+ abs(pts[START].y - 2 * pts[CTRL].y + pts[END].y);
-
-	step = 1.0f / ((float)curvature + 1.0f);
-	if (step > MAX_STEP)
-		step = MAX_STEP;
-	if (step < MIN_STEP)
-		step = MIN_STEP;
-	previous = pts[START];
-	t = step;
-	while (t <= 1.0f)
-	{
-		current = quad_bezier_pt(pts[START], pts[CTRL], pts[END], t);
-		ft_mlx_line_put(img, previous, current, color);
-		previous = current;
-		t += step;
-	}
-	ft_mlx_line_put(img, previous, pts[END], color);
-}
-
-static inline void	fill_line_curve(t_img_data *img, t_quad q,
+static inline void	fill_line_quarter(t_img_data *img, t_quad q, int in_x,
 			const t_rgba_int color)
 {
-	ft_mlx_line_aput(img,
+	fill_line_until(img, (t_vec2i[2])
+	{
 		vec2i((int)roundf(q.p0.x), (int)roundf(q.p0.y)),
-		vec2i((int)roundf(q.p2.x), (int)roundf(q.p2.y)),
-		color);
+		vec2i((int)roundf(q.p2.x), (int)roundf(q.p2.y))
+	},
+		in_x, color);
 }
 
-void	ft_mlx_quad_curve_aput(t_img_data *img, const t_vec2i *pts,
+void	ft_mlx_quarter_curve_aput(t_img_data *img, const t_vec2i *pts,
 			const t_rgba_int color)
 {
 	t_quad	stack[QUAD_STACK_SIZE];
@@ -74,11 +47,12 @@ void	ft_mlx_quad_curve_aput(t_img_data *img, const t_vec2i *pts,
 	{
 		q = stack[--stack_top];
 		if (get_curve_flatness(q, &m[0], &m[1], &m[2]) < 0.5f)
-			fill_line_curve(img, q, color);
+			fill_line_quarter(img, q, pts[IN].x, color);
 		else if (stack_top < (QUAD_STACK_SIZE - 2))
 		{
 			stack[stack_top++] = (t_quad){m[2], m[1], q.p2};
 			stack[stack_top++] = (t_quad){q.p0, m[0], m[2]};
 		}
 	}
+	ft_mlx_hline_aput(img, (int [2]){pts[END].x, pts[IN].x}, pts[END].y, color);
 }

@@ -6,7 +6,7 @@
 /*   By: jaubry-- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 05:02:16 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/23 19:09:36 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/23 19:28:34 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "mlx_detect_tkl_key.h"
 # include "mlx_detect_numpad_key.h"
 # include "mlx_detect_special_key.h"
+# include "mlx_detect_input_key.h"
 
 static inline bool	is_char_key(const int keycode)
 {

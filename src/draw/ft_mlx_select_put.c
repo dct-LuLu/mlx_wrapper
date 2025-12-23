@@ -6,11 +6,13 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 20:32:41 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/10/21 00:27:40 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/23 20:26:40 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mlx_wrapper.h"
+
+#define SELECT_ALPHA 0x2F
 
 static inline void	horz_select(t_img_data *img, t_vec2i x, const int y,
 		const t_rgb_int color)
@@ -35,7 +37,7 @@ static inline void	horz_select(t_img_data *img, t_vec2i x, const int y,
 			dot = x.data[1] - x.data[0];
 		else if ((incr < 0) && ((x.data[0] + dot) <= x.data[1]))
 			dot = -(x.data[0] - x.data[1]);
-		ft_mlx_hline_put(img, (int[2]){x.data[0], x.data[0] + dot}, y, color);
+		ft_mlx_hline_put(img, (int [2]){x.data[0], x.data[0] + dot}, y, color);
 		x.data[0] += incr;
 	}
 }
@@ -63,12 +65,10 @@ static inline void	vert_select(t_img_data *img, t_vec2i y, const int x,
 			dot = y.data[1] - y.data[0];
 		else if ((incr < 0) && ((y.data[0] + dot) <= y.data[1]))
 			dot = -(y.data[0] - y.data[1]);
-		ft_mlx_vline_put(img, (int[2]){y.data[0], y.data[0] + dot}, x, color);
+		ft_mlx_vline_put(img, (int [2]){y.data[0], y.data[0] + dot}, x, color);
 		y.data[0] += incr;
 	}
 }
-
-#define SELECT_ALPHA 0x2F
 
 void	ft_mlx_select_put(t_img_data *img, const t_vec2i a, const t_vec2i b,
 		const t_rgb_int color)
@@ -84,7 +84,8 @@ void	ft_mlx_select_put(t_img_data *img, const t_vec2i a, const t_vec2i b,
 	rig = vec2i(b.y, a.y);
 	if ((a.x == b.x) && (a.y == b.y))
 		return ;
-	ft_mlx_aarec_aput(img, a, b, rgba_int(color.r, color.g, color.b, SELECT_ALPHA));
+	ft_mlx_aarec_aput(img, a, b,
+		rgba_int(color.r, color.g, color.b, SELECT_ALPHA));
 	horz_select(img, top, a.y, color);
 	horz_select(img, bot, b.y, color);
 	vert_select(img, lef, b.x, color);

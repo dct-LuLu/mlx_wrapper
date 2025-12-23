@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 08:19:11 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/22 01:25:24 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/23 20:27:48 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	ft_mlx_pixel_put(t_img_data *img, const t_vec2i pos,
 void	ft_mlx_safe_pixel_put(t_img_data *img, const t_vec2i pos,
 			const t_rgb_int color)
 {
-	if ((pos.x >= 0) && (pos.x < img->width) && (pos.y >= 0) && (pos.y < img->height))
+	if ((pos.x >= 0) && (pos.x < img->width)
+		&& (pos.y >= 0) && (pos.y < img->height))
 		img->addr[pos.y * img->width + pos.x] = color.rgb;
 }
 
@@ -45,7 +46,9 @@ void	ft_mlx_safe_pixel_aput(t_img_data *img, const t_vec2i pos,
 
 	if ((pos.x == prev.x) && (pos.y == prev.y))
 		return ;
-	if ((pos.x >= 0) && (pos.x < img->width) && (pos.y >= 0) && (pos.y < img->height))
-		img->addr[mem_pos] = ft_blend_raw_colors(img->addr[mem_pos], color).rgba;
+	if ((pos.x >= 0) && (pos.x < img->width)
+		&& (pos.y >= 0) && (pos.y < img->height))
+		img->addr[mem_pos] = ft_blend_raw_colors(img->addr[mem_pos],
+				color).rgba;
 	prev = pos;
 }

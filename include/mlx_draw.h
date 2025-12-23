@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 23:08:55 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/20 23:04:16 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/23 20:21:43 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,8 @@ void	ft_mlx_line_put(t_img_data *img, t_vec2i a, t_vec2i b,
 			const t_rgb_int color);
 void	ft_mlx_line_aput(t_img_data *img, t_vec2i a, t_vec2i b,
 			const t_rgba_int color);
-void	ft_mlx_line_aputf(t_img_data *img, t_vec2i p[2],
-			int x, t_rgba_int color);
 
 // Rec draw functions
-
-// deprecated ?
 void	ft_mlx_batch_put(t_img_data *img, const t_vec2i pos,
 			const t_vec2i size, const t_rgb_int color);
 void	ft_mlx_batch_aput(t_img_data *img, const t_vec2i pos,
@@ -92,6 +88,19 @@ void	ft_mlx_safe_circle_put(t_img_data *img, const t_vec2i center,
 			const int radius, const t_rgb_int color);
 void	ft_mlx_safe_circle_aput(t_img_data *img, const t_vec2i center,
 			const int radius, const t_rgba_int color);
+
+# define QUAD_STACK_SIZE 64
+
+typedef struct s_quad
+{
+	t_vec2	p0;
+	t_vec2	p1;
+	t_vec2	p2;
+}			t_quad;
+
+float	get_curve_flatness(t_quad q, t_vec2 *m0, t_vec2 *m1, t_vec2 *mid);
+void	fill_line_until(t_img_data *img, t_vec2i p[2], int x,
+			const t_rgba_int color);
 
 void	ft_mlx_quad_curve_put(t_img_data *img, const t_vec2i *pts,
 			const t_rgb_int color);

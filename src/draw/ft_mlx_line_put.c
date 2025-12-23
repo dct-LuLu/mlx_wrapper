@@ -6,108 +6,12 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 08:17:29 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/09 15:29:25 by pabellis         ###   ########.fr       */
+/*   Updated: 2025/12/23 20:27:15 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mlx_wrapper.h"
 #include <math.h>
-
-/*
-
-static inline void	bresenham_h(t_img_data *img, t_vec2i a, t_vec2i b, t_rgb_int color)
-{
-	int	dx;
-	int	dy;
-	int	dir;
-    int	err;
-
-	dx = b.x - a.x;
-	dy = b.y - a.y;
-	dir = 1;
-	if (dy < 0)
-		dir = -1;
-	dy *= dir;
-	err = 2 * dy - dx;
-	while (a.x <= b.x)
-	{
-		++a.x;
-		ft_mlx_safe_pixel_put(img, a, color);
-		if (err >= 0)
-		{
-			a.y += dir;
-			err -= 2 * dx;
-		}
-		err += 2 * dy;
-	}
-}
-
-static inline void	bresenham_v(t_img_data *img, t_vec2i a, t_vec2i b, t_rgb_int color)
-{
-	int	dx;
-	int	dy;
-	int	dir;
-    int	err;
-
-	dx = b.x - a.x;
-	dy = b.y - a.y;
-	dir = 1;
-	if (dx < 0)
-		dir = -1;
-	dx *= dir;
-	err = 2 * dx - dy;
-	while (a.y <= b.y)
-	{
-		++a.y;
-		ft_mlx_safe_pixel_put(img, a, color);
-		if (err >= 0)
-		{
-			a.x += dir;
-			err -= 2 * dy;
-		}
-		err += 2 * dx;
-	}
-}
-*/
-
-/*
-	Function that draws a line from point a to point b using a color.
-*/
-/*
-void	ft_mlx_line_put(t_img_data *img, t_vec2i point_a, t_vec2i point_b, t_rgb_int color)
-{
-	if (abs(point_b.y - point_a.y)
-		<= abs(point_b.x - point_a.x))
-	{
-		if (point_b.x < point_a.x)
-			bresenham_h(img, point_b, point_a, color);
-		else
-			bresenham_h(img, point_a, point_b, color);
-	}
-	else
-	{
-		if (point_b.y < point_a.y)
-			bresenham_v(img, point_b, point_a, color);
-		else
-			bresenham_v(img, point_a, point_b, color);
-	}
-}*/
-
-
-/*
-typedef struct s_line
-
-{
-	int				dx;
-	int				dy;
-	int				sx;
-	int				sy;
-	int				err;
-	int				e2;
-}					t_line;
-*/
-
-
 
 /*
 	Function that initializes the necessary data for the line drawing function
@@ -145,7 +49,7 @@ void	ft_mlx_line_put(t_img_data *img, t_vec2i a, t_vec2i b,
 	while (true)
 	{
 		if ((a.x >= 0) && (a.x < img->width)
-				&& (a.y >= 0) && (a.y < img->height))
+			&& (a.y >= 0) && (a.y < img->height))
 			ft_mlx_pixel_put(img, a, color);
 		if ((a.x == b.x) && (a.y == b.y))
 			break ;
@@ -174,7 +78,7 @@ void	ft_mlx_line_aput(t_img_data *img, t_vec2i a, t_vec2i b,
 	while (true)
 	{
 		if ((a.x >= 0) && (a.x < img->width)
-				&& (a.y >= 0) && (a.y < img->height))
+			&& (a.y >= 0) && (a.y < img->height))
 			ft_mlx_pixel_aput(img, a, color);
 		if ((a.x == b.x) && (a.y == b.y))
 			break ;
@@ -197,11 +101,14 @@ void	ft_mlx_line_aput(t_img_data *img, t_vec2i a, t_vec2i b,
 #define A 0
 #define B 1
 
-void	ft_mlx_line_aputf(t_img_data *img, t_vec2i p[2], int x,
+/*
+	Function that draws a line between p[0] and p[1] and stops at x
+*/
+void	fill_line_until(t_img_data *img, t_vec2i p[2], int x,
 			const t_rgba_int color)
 {
-	t_line	line;
 	static int	last = 0;
+	t_line		line;
 
 	line = get_line_data(p[A], p[B]);
 	while (true)
@@ -214,15 +121,13 @@ void	ft_mlx_line_aputf(t_img_data *img, t_vec2i p[2], int x,
 			if (p[A].y == p[B].y)
 				break ;
 			if (last != p[A].y)
-				ft_mlx_hline_aput(img, (int[2]){x, p[A].x}, p[A].y, color);
+				ft_mlx_hline_aput(img, (int [2]){x, p[A].x}, p[A].y, color);
 			last = p[A].y;
 			incr_line(&p[A].y, &line.err, line.dx, line.sy);
 		}
-		if (line.e2 >= line.dy)
-		{
-			if (p[A].x == p[B].x)
-				break ;
+		if ((line.e2 >= line.dy) && (p[A].x == p[B].x))
+			break ;
+		else if (line.e2 >= line.dy)
 			incr_line(&p[A].x, &line.err, line.dy, line.sx);
-		}
 	}
 }
