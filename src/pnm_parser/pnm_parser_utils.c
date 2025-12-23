@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/20 21:54:08 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/21 01:42:27 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/23 20:45:54 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*read_by_char(const int fd)
 
 char	*skip_comment(const int fd)
 {
-	char *line;
+	char	*line;
 
 	line = read_by_char(fd);
 	while (line)
@@ -88,11 +88,11 @@ bool	has_invalid_fields(t_texture *tex, int *maxval)
 	bool	ret;
 
 	ret = false;
-    if ((tex->width <= 0) || (tex->height <= 0))
-    	ret = true;
-    else if (tex->channels <= 0)
-    	ret = true;
-    else if (maxval && (*maxval != 1) && (*maxval != 255))
-    	ret = true;
-    return (ret);
+	if ((tex->width <= 0) || (tex->height <= 0))
+		ret = true;
+	else if (tex->channels <= 0)
+		ret = true;
+	else if (maxval && (*maxval != 1) && (*maxval != 255))
+		ret = true;
+	return (ret);
 }

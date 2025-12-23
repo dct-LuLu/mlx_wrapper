@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/20 20:18:49 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/21 01:06:30 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/23 20:44:49 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ int	parse_pbgpm_header(const int fd, t_texture *tex)
 
 	line = NULL;
 	check_already_parsed_type(fd, &line);
-	if (!line || (ft_scan(2, " *%d  *%d *\n", line, &tex->width, &tex->height) != 0))
+	if (!line || (ft_scan(2, " *%d  *%d *\n", line,
+				&tex->width, &tex->height) != 0))
 	{
 		// unable to parse width and height
 		free(line);

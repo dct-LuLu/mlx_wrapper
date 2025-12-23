@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 12:09:17 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/23 20:38:41 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/23 20:46:37 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,14 @@ typedef struct s_img_data
 }					t_img_data;
 
 typedef struct s_img_data	t_texture;
+
+typedef enum e_pnm_type
+{
+	PBM_TYPE = 0,
+	PGM_TYPE,
+	PPM_TYPE,
+	PAM_TYPE
+}	t_pnm_type;
 
 t_texture	*pnm_parser(const int fd, t_texture *tex);
 t_texture	*parse_pbm(const int fd, t_texture *tex);
