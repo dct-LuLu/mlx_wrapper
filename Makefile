@@ -6,28 +6,14 @@
 #    By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/11 10:16:04 by jaubry--          #+#    #+#              #
-#    Updated: 2025/10/11 20:32:48 by jaubry--         ###   ########.fr        #
+#    Updated: 2026/01/04 21:56:23 by jaubry--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 ROOTDIR		?= .
 include $(ROOTDIR)/mkidir/make_utils.mk
 
-# Variables
-RESOLUTION	= $(shell xrandr | sed -n '/primary/{n;p;}' | awk '{print $$1}')
-MAX_WIDTH	= $(shell echo $(RESOLUTION) | cut -d 'x' -f 1)
-MAX_HEIGHT	= $(shell echo $(RESOLUTION) | cut -d 'x' -f 2-)
-WINDOWLESS	= 0
-FULLSCREEN	= 0
-RESIZEABLE	= 0
-ifeq ($(FULLSCREEN), 1)
-WIDTH		= 1920
-HEIGHT		= 1080
-else
-WIDTH		= 500
-HEIGHT		= 500
-endif
-PERF		= 0
+LIBNAME		= libmlx-wrapper
 
 # Directories
 CDIR		= mlx_wrapper
@@ -40,11 +26,42 @@ XCERRCALDIR	= $(LIBDIR)/xcerrcal
 LIBFTDIR	= $(LIBDIR)/libft
 MLXDIR		= $(LIBDIR)/minilibx-linux
 
+# Includes
+include $(LIBFTDIR)/includes.mk $(XCERRCALDIR)/includes.mk includes.mk
+
+INCLUDES	= $(INCDIRS_MLXW) \
+			  $(addprefix $(XCERRCALDIR)/, $(INCDIRS_XCERRCAL)) \
+			  $(addprefix $(LIBFTDIR)/, $(INCDIRS_LIBFT)) \
+			  $(MLXDIR)
+
 # Output
-NAME		= libmlx-wrapper.a
+NAME		= $(LIBNAME).a
 XCERRCAL	= $(XCERRCALDIR)/libxcerrcal.a
 LIBFT		= $(LIBFTDIR)/libft.a
 MLX			= $(MLXDIR)/libmlx.a
+
+# Variables
+WINDOWLESS	= 0
+FULLSCREEN	= 0
+RESIZEABLE	= 0
+
+ifeq ($(FULLSCREEN), 1)
+WIDTH		= $(MAX_WIDTH)
+HEIGHT		= $(MAX_HEIGHT)
+else
+WIDTH		= 500
+HEIGHT		= 500
+endif
+
+PERF		= 0
+
+VARS		= DEBUG=$(DEBUG) \
+			  WIDTH=$(WIDTH) \
+			  HEIGHT=$(HEIGHT) \
+			  PERF=$(PERF) \
+			  FULLSCREEN=$(FULLSCREEN) \
+			  RESIZEABLE=$(RESIZEABLE) \
+			  WINDOWLESS=$(WINDOWLESS)
 
 # Compiler and flags
 CC			= cc
@@ -54,17 +71,8 @@ CFLAGS		= -Wall -Wextra -Werror \
 
 DFLAGS		= -MMD -MP -MF $(DEPDIR)/$*.d
 
-IFLAGS		= -I$(INCDIR) -I$(XCERRCALDIR)/include -I$(LIBFTDIR)/include -I$(MLXDIR)
+IFLAGS		= $(addprefix -I,$(INCLUDES))
 
-VARS		= DEBUG=$(DEBUG) \
-			  WIDTH=$(WIDTH) \
-			  HEIGHT=$(HEIGHT) \
-			  PERF=$(PERF) \
-			  FULLSCREEN=$(FULLSCREEN) \
-			  RESIZEABLE=$(RESIZEABLE) \
-			  WINDOWLESS=$(WINDOWLESS) \
-			  MAX_WIDTH=$(MAX_WIDTH) \
-			  MAX_HEIGHT=$(MAX_HEIGHT)
 VFLAGS		= $(addprefix -D ,$(VARS))
 
 CFLAGS		+= $(DEBUG_FLAGS) $(FFLAGS) $(VFLAGS)
@@ -75,7 +83,7 @@ ARFLAGS		= rcs
 RANLIB      = $(if $(findstring -flto,$(FFLAGS)),$(FAST_RANLIB),$(STD_RANLIB))
 
 # VPATH
-vpath %.h $(INCDIR) $(LIBFTDIR)/$(INCDIR) $(MLXDIR)
+vpath %.h $(INCLUDES)
 vpath %.o $(OBJDIR) $(LIBFTDIR)/$(OBJDIR)
 vpath %.d $(DEPDIR) $(LIBFTDIR)/$(DEPDIR)
 
