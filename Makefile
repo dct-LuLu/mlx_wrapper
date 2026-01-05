@@ -6,7 +6,7 @@
 #    By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/11 10:16:04 by jaubry--          #+#    #+#              #
-#    Updated: 2026/01/04 21:56:23 by jaubry--         ###   ########.fr        #
+#    Updated: 2026/01/05 07:45:08 by jaubry--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,6 @@ LIBNAME		= libmlx-wrapper
 # Directories
 CDIR		= mlx_wrapper
 SRCDIR		= src
-INCDIR		= include
 OBJDIR		= .obj
 DEPDIR		= .dep
 
@@ -41,6 +40,14 @@ LIBFT		= $(LIBFTDIR)/libft.a
 MLX			= $(MLXDIR)/libmlx.a
 
 # Variables
+DEBUG_MLXW	= 2
+
+ifeq ($(filter $(DEBUG_LVL),1 $(DEBUG_MLXW)),)
+DEBUG		= 0
+else
+DEBUG		= 1
+endif
+
 WINDOWLESS	= 0
 FULLSCREEN	= 0
 RESIZEABLE	= 0
@@ -56,6 +63,7 @@ endif
 PERF		= 0
 
 VARS		= DEBUG=$(DEBUG) \
+			  DEBUG_LVL=$(DEBUG_LVL) \
 			  WIDTH=$(WIDTH) \
 			  HEIGHT=$(HEIGHT) \
 			  PERF=$(PERF) \
@@ -64,7 +72,7 @@ VARS		= DEBUG=$(DEBUG) \
 			  WINDOWLESS=$(WINDOWLESS)
 
 # Compiler and flags
-CC			= cc
+CC			?= cc
 
 CFLAGS		= -Wall -Wextra -Werror \
 			  -std=gnu11
@@ -75,7 +83,8 @@ IFLAGS		= $(addprefix -I,$(INCLUDES))
 
 VFLAGS		= $(addprefix -D ,$(VARS))
 
-CFLAGS		+= $(DEBUG_FLAGS) $(FFLAGS) $(VFLAGS)
+CFLAGS		+= $(INSPECT_FLAGS) $(PROFILE_FLAGS) $(FFLAGS) $(VFLAGS)
+
 CF			= $(CC) $(CFLAGS) $(IFLAGS)
 
 AR          = $(if $(findstring -flto,$(FFLAGS)),$(FAST_AR),$(STD_AR))
@@ -99,15 +108,18 @@ endif
 OBJS		= $(addprefix $(OBJDIR)/, $(notdir $(SRCS:.c=.o)))
 DEPS		= $(addprefix $(DEPDIR)/, $(notdir $(SRCS:.c=.d)))
 
+
+
 all:	$(NAME)
 fast:	$(NAME)
-debug:	$(NAME)
+inspect:$(NAME)
+profile:$(NAME)
 
-$(NAME): $(XCERRCAL) $(MLX) $(LIBFT) $(OBJS)
+$(NAME): $(XCERRCAL) $(MLX) $(LIBFT) $(OBJS) $(INCLUDES)
 	@$(call ar-msg)
-	@$(AR) $(ARFLAGS) $@ $^
+	@$(AR) $(ARFLAGS) $@ $(OBJS)
 ifeq ($(FAST),1)
-	@$(RANLIB) $@ $(SILENCE)
+	@$(RANLIB) $@
 endif
 	$(call ar-finish-msg)
 
