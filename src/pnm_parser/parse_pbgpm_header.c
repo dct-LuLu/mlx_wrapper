@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/20 20:18:49 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/23 20:44:49 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/01/05 12:03:48 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,15 @@ int	parse_pbgpm_header(const int fd, t_texture *tex)
 	if (!line || (ft_scan(2, " *%d  *%d *\n", line,
 				&tex->width, &tex->height) != 0))
 	{
-		// unable to parse width and height
 		free(line);
-		return (-1);
+		return (neg_error(pack_err(MLXW_ID, MLXW_E_PNMPWH), FL, LN, FC));
 	}
 	free(line);
 	line = skip_comment(fd);
 	if (!line || (ft_scan(3, " *%d *\n", line, &maxval) != 0))
 	{
-		// unable to parse bit depth
 		free(line);
-		return (-1);
+		return (neg_error(pack_err(MLXW_ID, MLXW_E_PNMPMXV), FL, LN, FC));
 	}
 	free(line);
 	return (has_invalid_fields(tex, &maxval));

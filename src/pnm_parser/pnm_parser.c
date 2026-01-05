@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/19 20:04:54 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/23 20:46:48 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/01/05 11:48:22 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,6 @@
 
 char	*skip_comment(const int fd);
 
-/*
-	Invalid PNM header
-		P0 to P3 -> invalid format can only parse raw binary data, 
-			not ASCII decimal data
-		else -> unsopported format or inexistant format specification
-
-		invalid size
-		invalid bit
-		
-*/
 static inline int	parse_pnm_type(const int fd)
 {
 	t_pnm_type	pnm_type;
@@ -31,15 +21,15 @@ static inline int	parse_pnm_type(const int fd)
 
 	line = skip_comment(fd);
 	if (!line)
-		return (-1);
+		return (neg_error(pack_err(MLXW_ID, MLXW_E_PNMFLN), FL, LN, FC));
 	if (line[0] != 'P')
-		return (-1);
+		return (neg_error(pack_err(MLXW_ID, MLXW_E_PNMFFMT), FL, LN, FC));
 	pnm_type = ft_strncmp(line, "P4", 2);
 	free(line);
 	if (pnm_type < 0)
-		return (-1);//ascii netbmp format not supported
+		return (neg_error(pack_err(MLXW_ID, MLXW_E_PNMAFMT), FL, LN, FC));
 	else if (pnm_type > PAM_TYPE)
-		return (-1);//unrecognize format type
+		return (neg_error(pack_err(MLXW_ID, MLXW_E_PNMUFMT), FL, LN, FC));
 	return (pnm_type);
 }
 
@@ -56,8 +46,6 @@ t_texture	*pnm_parser(const int fd, t_texture *tex)
 	else if (pnm_type == PAM_TYPE)
 		tex = parse_pam(fd, tex);
 	else
-		return (NULL);
-	if (!tex)
-		return (NULL);//error;
+		return (nul_error(pack_err(MLXW_ID, MLXW_E_PNMDFMT), FL, LN, FC));
 	return (tex);
 }

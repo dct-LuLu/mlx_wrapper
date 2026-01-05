@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/20 20:20:55 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/23 20:44:12 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/01/05 12:05:57 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,10 @@ static inline int	read_key(char *line, size_t line_num,
 			if (i == (KEYS_NUM - 1))
 				return (1);
 			else if (ft_scan(line_num, scans[i], line, vals[i]) != 0)
-				return (-1);
+			{
+				register_complex_err_msg(MLXW_E_MSG_PAMAT, keys[i]);
+				return (neg_error(pack_err(MLXW_ID, MLXW_E_PAMAT), FL, LN, FC));
+			}
 		}
 		i++;
 	}
@@ -69,7 +72,7 @@ static inline int	parse_pam_header(const int fd, t_texture *tex)
 			break ;
 		free(line);
 		if (ret == -1)
-			return (-1);
+			return (neg_error(pack_err(MLXW_ID, MLXW_E_PAMHDMS), FL, LN, FC));
 		line = read_by_char(fd);
 		line_num++;
 	}
@@ -80,9 +83,9 @@ static inline int	parse_pam_header(const int fd, t_texture *tex)
 t_texture	*parse_pam(const int fd, t_texture *tex)
 {
 	if (parse_pam_header(fd, tex) != 0)
-		return (NULL);// error while parsing %s header values
+		return (nul_error(pack_err(MLXW_ID, MLXW_E_PAMHEAD), FL, LN, FC));
 	tex->line_len = tex->width * tex->channels;
 	if (read_binary_data(fd, tex) == -1)
-		return (NULL);
+		return (nul_error(pack_err(MLXW_ID, MLXW_E_PNMDAT), FL, LN, FC));
 	return (tex);
 }
