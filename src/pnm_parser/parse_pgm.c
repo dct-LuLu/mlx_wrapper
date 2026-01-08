@@ -17,9 +17,9 @@ int	parse_pbgpm_header(const int fd, t_texture *tex);
 
 t_texture	*parse_pgm(const int fd, t_texture *tex)
 {
+	tex->channels = 1;
 	if (parse_pbgpm_header(fd, tex) == -1)
 		return (nul_error(pack_err(MLXW_ID, MLXW_E_PNMHEAD), FL, LN, FC));
-	tex->channels = 1;
 	tex->line_len = tex->width * tex->channels;
 	if (read_binary_data(fd, tex) == -1)
 		return (nul_error(pack_err(MLXW_ID, MLXW_E_PNMDAT), FL, LN, FC));
