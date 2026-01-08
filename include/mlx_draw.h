@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 23:08:55 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/23 20:21:43 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/01/08 23:31:07 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,9 @@ void	ft_mlx_quarter_curve_aput(t_img_data *img, const t_vec2i *pts,
 // Images draw functions
 
 void	ft_mlx_img_put(t_img_data *mlx_img, const t_vec2i pos,
+			t_img_data *img);
+
+void	ft_mlx_rev_img_put(t_img_data *mlx_img, const t_vec2i pos,
 			t_img_data *img);
 
 void	ft_mlx_img_aput(t_img_data *mlx_img, const t_vec2i pos,
