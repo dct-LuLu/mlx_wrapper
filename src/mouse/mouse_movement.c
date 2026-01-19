@@ -6,17 +6,26 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 21:23:52 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/23 20:36:55 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/01/19 20:17:23 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mlx_wrapper.h"
+#include <X11/extensions/XTest.h>
 
 static void	mouse_move_focus(t_mlx *mlx_data)
 {
 	mlx_data->mouse_input.warped = true;
-	mlx_mouse_move(mlx_data->mlx, mlx_data->win,
+	/*
+	XWarpPointer(mlx_data->mlx->display, None, mlx_data->win->window,
+                 0, 0, 0, 0,
 		mlx_data->half_size.x, mlx_data->half_size.y);
+	*/
+	XTestFakeMotionEvent(mlx_data->mlx->display, DefaultScreen(mlx_data->mlx->display), 
+		MAX_WIDTH / 2, MAX_HEIGHT / 2, CurrentTime);
+	/*
+	mlx_mouse_move(mlx_data->mlx, mlx_data->win,
+		mlx_data->half_size.x, mlx_data->half_size.y);*/
 	XFlush(mlx_data->mlx->display);
 	mlx_data->mouse_input.last_pos = mlx_data->half_size;
 }
