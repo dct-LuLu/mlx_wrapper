@@ -6,7 +6,7 @@
 #    By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/11 10:16:04 by jaubry--          #+#    #+#              #
-#    Updated: 2026/01/05 09:42:05 by jaubry--         ###   ########.fr        #
+#    Updated: 2026/02/06 05:53:53 by jaubry--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,8 @@ MLXDIR		= $(LIBDIR)/minilibx-linux
 
 # Includes
 include $(LIBFTDIR)/includes.mk $(XCERRCALDIR)/includes.mk includes.mk
+
+INCXTEST	= $(LIBDIR)/local_xtst/include/X11/extensions
 
 INCLUDES	= $(INCDIRS_MLXW) \
 			  $(addprefix $(XCERRCALDIR)/, $(INCDIRS_XCERRCAL)) \
@@ -80,7 +82,7 @@ CFLAGS		= -Wall -Wextra -Werror \
 
 DFLAGS		= -MMD -MP -MF $(DEPDIR)/$*.d
 
-IFLAGS		= $(addprefix -I,$(INCLUDES))
+IFLAGS		= $(addprefix -I,$(INCLUDES) $(INCXTEST))
 
 VFLAGS		= $(addprefix -D ,$(VARS) DEBUG=$(DEBUG))
 
