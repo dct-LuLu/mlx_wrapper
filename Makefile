@@ -6,7 +6,7 @@
 #    By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/11 10:16:04 by jaubry--          #+#    #+#              #
-#    Updated: 2026/02/06 05:53:53 by jaubry--         ###   ########.fr        #
+#    Updated: 2026/02/07 02:44:36 by jaubry--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -86,7 +86,7 @@ IFLAGS		= $(addprefix -I,$(INCLUDES) $(INCXTEST))
 
 VFLAGS		= $(addprefix -D ,$(VARS) DEBUG=$(DEBUG))
 
-CFLAGS		+= $(INSPECT_FLAGS) $(PROFILE_FLAGS) $(FFLAGS) $(VFLAGS)
+CFLAGS		+= $(SANITIZE_FLAGS) $(INSPECT_FLAGS) $(PROFILE_FLAGS) $(FFLAGS) $(VFLAGS)
 
 CF			= $(CC) $(CFLAGS) $(IFLAGS)
 
