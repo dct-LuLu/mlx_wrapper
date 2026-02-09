@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/20 20:20:55 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/01/05 12:05:57 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/09 09:41:43 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*read_by_char(const int fd);
 
 #define FMT_WIDTH " *WIDTH *%d *\n"
 #define FMT_HEIGHT " *HEIGHT *%d *\n"
-#define FMT_DEPTH " *DEPTH *%d *\n"
+#define FMT_DEPTH " *DEPTH *%8 *\n"
 #define FMT_MAXVAL " *MAXVAL *%d *\n"
 
 static inline int	read_key(char *line, size_t line_num,
@@ -31,8 +31,8 @@ static inline int	read_key(char *line, size_t line_num,
 		"MAXVAL", "ENDHDR"};
 	static const char	*scans[KEYS_NUM - 1] = {FMT_WIDTH, FMT_HEIGHT,
 		FMT_DEPTH, FMT_MAXVAL};
-	int *const			vals[KEYS_NUM - 1] = {(int *)&tex->width,
-		(int *)&tex->height, (int *)&tex->channels, maxval};
+	void *const			vals[KEYS_NUM - 1] = {(int *)&tex->width,
+		(int *)&tex->height, (uint8_t *)&tex->channels, maxval};
 	size_t				i;
 
 	i = 0;
