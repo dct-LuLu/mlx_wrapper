@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 02:52:34 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/23 19:13:03 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/10 09:00:02 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,9 @@ int		add_func_button_hook(t_mlx *mlx_data, t_mbuttons keycode,
 			void (*action)(t_vec2i, t_maction, void *, t_mlx *),
 			void *arg);
 
+int	remove_button_hook_by_func(t_mlx *mlx_data,
+		void (*action)(t_vec2i, t_maction, void *, t_mlx *));
+
 void	update_mouse_focus_state(void *v, t_mlx *mlx_data);
 
 typedef struct s_move_event
@@ -52,6 +55,9 @@ typedef struct s_move_event
 
 int		add_func_move_hook(t_mlx *mlx_data,
 			void (*action)(void *, t_mlx *), void *arg);
+
+int		remove_move_hook_by_func(t_mlx *mlx_data,
+			void (*action)(void *, t_mlx *));
 
 typedef struct s_mouse_input
 {

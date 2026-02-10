@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 23:07:04 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/21 03:28:23 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/10 10:43:38 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,11 @@ int	add_status_skey_hook(t_mlx *mlx_data, int keycode,
 
 int	add_func_skey_hook(t_mlx *mlx_data, int keycode,
 		void (*action)(void *, t_mlx *), void *arg);
+
+int	remove_key_hook_by_func(t_mlx *mlx_data,
+		void (*action)(void *, t_mlx *));
+
+int	remove_key_hook_by_status(t_mlx *mlx_data,
+		bool *status);
 
 #endif//MLX_KEY_INPUT_H
