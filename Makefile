@@ -6,7 +6,7 @@
 #    By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/11 10:16:04 by jaubry--          #+#    #+#              #
-#    Updated: 2026/02/12 06:33:10 by jaubry--         ###   ########.fr        #
+#    Updated: 2026/02/12 22:24:16 by jaubry--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,7 +72,8 @@ VARS		= DEBUG_LVL=$(DEBUG_LVL) \
 			  PERF=$(PERF) \
 			  FULLSCREEN=$(FULLSCREEN) \
 			  RESIZEABLE=$(RESIZEABLE) \
-			  WINDOWLESS=$(WINDOWLESS)
+			  WINDOWLESS=$(WINDOWLESS) \
+			  XTEST=$(XTEST)
 
 # Compiler and flags
 CC			?= cc
