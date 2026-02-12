@@ -6,7 +6,7 @@
 #    By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/11 10:16:04 by jaubry--          #+#    #+#              #
-#    Updated: 2026/02/07 02:44:36 by jaubry--         ###   ########.fr        #
+#    Updated: 2026/02/12 06:33:10 by jaubry--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -112,11 +112,14 @@ OBJS		= $(addprefix $(OBJDIR)/, $(notdir $(SRCS:.c=.o)))
 DEPS		= $(addprefix $(DEPDIR)/, $(notdir $(SRCS:.c=.d)))
 
 
-
-all:	$(NAME)
-fast:	$(NAME)
-inspect:$(NAME)
-profile:$(NAME)
+all:		$(NAME)
+fast:		$(NAME)
+debug:		$(NAME)
+inspect:	$(NAME)
+profile:	$(NAME)
+san-mem:	$(NAME)
+san-leak:	$(NAME)
+san-ub:		$(NAME)
 
 $(NAME): $(XCERRCAL) $(MLX) $(LIBFT) $(OBJS) $(INCLUDES)
 	@$(call ar-msg)
@@ -177,8 +180,17 @@ fclean:
 	$(call rm-lib-msg)
 	@rm -f $(NAME)
 
-re: fclean all
+re:			fclean all
+refast:		fclean fast
+redebug:	fclean debug
+reinspect:	fclean inspect
+reprofile:	fclean profile
+resan-mem:	fclean san-mem
+resan-leak:	fclean san-leak
+resan-ub:	fclean san-ub
 
 -include $(DEPS)
 
-.PHONY: all debug re clean fclean help buildmsg print-%
+.PHONY: all clean fclean
+.PHONY: help buildmsg
+.PHONY: re refast redebug reinspect reprofile resan-mem resan-leak resan-ub
