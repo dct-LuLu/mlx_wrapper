@@ -6,7 +6,7 @@
 #    By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/11 10:16:04 by jaubry--          #+#    #+#              #
-#    Updated: 2026/02/16 16:53:47 by jaubry--         ###   ########.fr        #
+#    Updated: 2026/02/16 20:04:05 by jaubry--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -113,21 +113,21 @@ endif
 OBJS		= $(addprefix $(OBJDIR)/, $(notdir $(SRCS:.c=.o)))
 DEPS		= $(addprefix $(DEPDIR)/, $(notdir $(SRCS:.c=.d)))
 
-
-all:		$(NAME)
-fast:		$(NAME)
-debug:		$(NAME)
-inspect:	$(NAME)
-profile:	$(NAME)
-san-mem:	$(NAME)
-san-leak:	$(NAME)
-san-ub:		$(NAME)
+include $(ROOTDIR)/mkidir/make_rules.mk
 
 $(NAME): $(XCERRCAL) $(MLX) $(LIBFT) $(OBJS) $(INCLUDES)
 	@$(call ar-msg)
+ifeq ($(VERBOSE),1)
+	$(AR) $(ARFLAGS) $@ $(OBJS)
+else
 	@$(AR) $(ARFLAGS) $@ $(OBJS)
+endif
 ifeq ($(FAST),1)
+ifeq ($(VERBOSE),1)
+	$(RANLIB) $@
+else
 	@$(RANLIB) $@
+endif
 endif
 	$(call ar-finish-msg)
 
@@ -141,14 +141,6 @@ $(MLX):
 	$(call mlx-build-msg)
 	@$(MAKE) -s -C $(MLXDIR) CC="$(MLX_GCC) $(if $(filter 1,$(FAST)),$(OFLAGS))" $(MUTE)
 	$(call mlx-finish-msg)
-
-$(OBJDIR)/%.o: %.c | buildmsg $(OBJDIR) $(DEPDIR)
-	$(call lib-compile-obj-msg)
-	@$(CF) $(DFLAGS) -c $< -o $@
-
-$(OBJDIR) $(DEPDIR):
-	$(call create-dir-msg)
-	@mkdir -p $@
 
 buildmsg:
 ifneq ($(shell [ -f $(NAME) ] && echo exists),exists)
@@ -166,8 +158,6 @@ help:
 	@echo
 	@echo -e "\tprint-%\t\t\t\t: Prints makefile variable content when replacing '%'"
 
-print-% : ; $(info $* is a $(flavor $*) variable set to [$($*)]) @true
-
 clean:
 	@$(MAKE) -s -C $(LIBFTDIR) clean ROOTDIR=../..
 	$(call rm-obj-msg)
@@ -181,15 +171,6 @@ fclean:
 	@rm -rf $(OBJDIR) $(DEPDIR)
 	$(call rm-lib-msg)
 	@rm -f $(NAME)
-
-re:			fclean all
-refast:		fclean fast
-redebug:	fclean debug
-reinspect:	fclean inspect
-reprofile:	fclean profile
-resan-mem:	fclean san-mem
-resan-leak:	fclean san-leak
-resan-ub:	fclean san-ub
 
 -include $(DEPS)
 
