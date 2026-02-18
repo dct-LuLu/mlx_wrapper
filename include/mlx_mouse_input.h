@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 02:52:34 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/02/10 09:00:02 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/18 09:12:57 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,14 @@ typedef struct s_button_event
 	void		*arg;
 	bool		*status;
 	t_mbuttons	keycode;
+	ssize_t		event_idx;
 }				t_button_event;
 
-int		add_func_button_hook(t_mlx *mlx_data, t_mbuttons keycode,
+ssize_t	add_func_button_hook(t_mlx *mlx_data, t_mbuttons keycode,
 			void (*action)(t_vec2i, t_maction, void *, t_mlx *),
 			void *arg);
 
-int	remove_button_hook_by_func(t_mlx *mlx_data,
-		void (*action)(t_vec2i, t_maction, void *, t_mlx *));
+int		remove_button_hook(t_mlx *mlx_data, ssize_t event_idx);
 
 void	update_mouse_focus_state(void *v, t_mlx *mlx_data);
 
@@ -51,13 +51,13 @@ typedef struct s_move_event
 {
 	void	(*action)(void *, t_mlx *);
 	void	*arg;
+	ssize_t	event_idx;
 }			t_move_event;
 
-int		add_func_move_hook(t_mlx *mlx_data,
+ssize_t	add_func_move_hook(t_mlx *mlx_data,
 			void (*action)(void *, t_mlx *), void *arg);
 
-int		remove_move_hook_by_func(t_mlx *mlx_data,
-			void (*action)(void *, t_mlx *));
+int		remove_move_hook(t_mlx *mlx_data, ssize_t event_idx);
 
 typedef struct s_mouse_input
 {

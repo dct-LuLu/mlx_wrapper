@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 23:07:04 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/02/10 10:43:38 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/18 09:13:10 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef struct s_key_event
 	void		(*action)(void *, t_mlx *);
 	void		*arg;
 	bool		*status;//program defined
+	ssize_t		event_idx;
 }				t_key_event;
 
 typedef struct s_key_input
@@ -35,22 +36,18 @@ typedef struct s_key_input
 	int			keycode;
 }				t_key_input;
 
-int	add_status_key_hook(t_mlx *mlx_data, bool (*is_key)(int),
+ssize_t	add_status_key_hook(t_mlx *mlx_data, bool (*is_key)(int),
 		bool toggle, bool *status);
 
-int	add_func_key_hook(t_mlx *mlx_data, bool (*is_key)(int),
+ssize_t	add_func_key_hook(t_mlx *mlx_data, bool (*is_key)(int),
 		void (*action)(void *, t_mlx *), void *arg);
 
-int	add_status_skey_hook(t_mlx *mlx_data, int keycode,
+ssize_t	add_status_skey_hook(t_mlx *mlx_data, int keycode,
 		bool toggle, bool *status);
 
-int	add_func_skey_hook(t_mlx *mlx_data, int keycode,
+ssize_t	add_func_skey_hook(t_mlx *mlx_data, int keycode,
 		void (*action)(void *, t_mlx *), void *arg);
 
-int	remove_key_hook_by_func(t_mlx *mlx_data,
-		void (*action)(void *, t_mlx *));
-
-int	remove_key_hook_by_status(t_mlx *mlx_data,
-		bool *status);
+int		remove_key_hook(t_mlx *mlx_data, ssize_t event_idx);
 
 #endif//MLX_KEY_INPUT_H
