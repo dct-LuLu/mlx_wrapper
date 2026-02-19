@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 08:54:10 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/02/18 09:11:42 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/19 15:57:42 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,3 @@ int	remove_move_hook(t_mlx *mlx_data, ssize_t event_idx)
 	}
 	return (-1);
 }
-

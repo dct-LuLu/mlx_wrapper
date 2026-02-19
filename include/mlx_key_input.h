@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 23:07:04 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/02/18 09:13:10 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/19 15:55:58 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,16 @@ typedef struct s_key_input
 }				t_key_input;
 
 ssize_t	add_status_key_hook(t_mlx *mlx_data, bool (*is_key)(int),
-		bool toggle, bool *status);
+			bool toggle, bool *status);
 
 ssize_t	add_func_key_hook(t_mlx *mlx_data, bool (*is_key)(int),
-		void (*action)(void *, t_mlx *), void *arg);
+			void (*action)(void *, t_mlx *), void *arg);
 
 ssize_t	add_status_skey_hook(t_mlx *mlx_data, int keycode,
-		bool toggle, bool *status);
+			bool toggle, bool *status);
 
 ssize_t	add_func_skey_hook(t_mlx *mlx_data, int keycode,
-		void (*action)(void *, t_mlx *), void *arg);
+			void (*action)(void *, t_mlx *), void *arg);
 
 int		remove_key_hook(t_mlx *mlx_data, ssize_t event_idx);
 

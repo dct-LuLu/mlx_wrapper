@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/21 03:28:32 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/02/18 09:16:52 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/19 15:51:42 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ ssize_t	add_status_key_hook(t_mlx *mlx_data, bool (*is_key)(int),
 		.toggle = toggle,
 		.status = status
 	};
-	
+
 	return (add_key_hook(mlx_data, (t_key_event *)&key_event));
 }
 

@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 21:23:52 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/02/12 22:24:02 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/19 15:57:02 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,17 @@ static void	mouse_move_focus(t_mlx *mlx_data)
 	mlx_data->mouse_input.warped = true;
 	if (XTEST)
 	{
-		XTestFakeMotionEvent(mlx_data->mlx->display, DefaultScreen(mlx_data->mlx->display), 
+		XTestFakeMotionEvent(mlx_data->mlx->display,
+			DefaultScreen(mlx_data->mlx->display),
 			MAX_WIDTH / 2, MAX_HEIGHT / 2, CurrentTime);
-		while (XCheckMaskEvent(mlx_data->mlx->display, PointerMotionMask, &event))
+		while (XCheckMaskEvent(mlx_data->mlx->display,
+				PointerMotionMask, &event))
 		{
-	
 		}
 	}
 	else
 		mlx_mouse_move(mlx_data->mlx, mlx_data->win, WIDTH / 2, HEIGHT / 2);
-    XFlush(mlx_data->mlx->display);
+	XFlush(mlx_data->mlx->display);
 	mlx_data->mouse_input.last_pos = mlx_data->half_size;
 }
 

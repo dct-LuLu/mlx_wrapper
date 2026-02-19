@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/20 22:41:58 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/01/08 23:30:25 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/19 15:50:17 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ void	ft_mlx_img_put(t_img_data *mlx_img, const t_vec2i pos, t_img_data *img)
 	}
 }
 
-void	ft_mlx_rev_img_put(t_img_data *mlx_img, const t_vec2i pos, t_img_data *img)
+void	ft_mlx_rev_img_put(t_img_data *mlx_img, const t_vec2i pos,
+			t_img_data *img)
 {
 	t_vec2i		cur_pos;
 	t_rgba_int	color;

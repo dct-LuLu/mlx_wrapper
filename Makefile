@@ -6,7 +6,7 @@
 #    By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/11 10:16:04 by jaubry--          #+#    #+#              #
-#    Updated: 2026/02/16 20:04:05 by jaubry--         ###   ########.fr        #
+#    Updated: 2026/02/19 15:53:52 by jaubry--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ MLXDIR		= $(LIBDIR)/minilibx-linux
 # Includes
 include $(LIBFTDIR)/includes.mk $(XCERRCALDIR)/includes.mk includes.mk
 
-INCXTEST	= $(LIBDIR)/local_xtst/include/X11/extensions
+INCXTEST	= $(MLXDIR)/local_xtst/include/X11/extensions
 
 INCLUDES	= $(INCDIRS_MLXW) \
 			  $(addprefix $(XCERRCALDIR)/, $(INCDIRS_XCERRCAL)) \
