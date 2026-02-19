@@ -30,32 +30,35 @@ typedef enum e_maction
 	MRELEASE
 }	t_maction;
 
+typedef void	t_button_action(t_vec2i, t_maction, void *, t_mlx *);
+
 typedef struct s_button_event
 {
-	void		(*action)(t_vec2i, t_maction, void *, t_mlx *);
-	void		*arg;
-	bool		*status;
-	t_mbuttons	keycode;
-	ssize_t		event_idx;
-}				t_button_event;
+	t_button_action	*action;
+	void			*arg;
+	bool			*status;
+	t_mbuttons		keycode;
+	ssize_t			event_idx;
+}					t_button_event;
 
 ssize_t	add_func_button_hook(t_mlx *mlx_data, t_mbuttons keycode,
-			void (*action)(t_vec2i, t_maction, void *, t_mlx *),
-			void *arg);
+			t_button_action *action, void *arg);
 
 int		remove_button_hook(t_mlx *mlx_data, ssize_t event_idx);
 
 void	update_mouse_focus_state(void *v, t_mlx *mlx_data);
 
+typedef void	t_move_action(void *, t_mlx *);
+
 typedef struct s_move_event
 {
-	void	(*action)(void *, t_mlx *);
-	void	*arg;
-	ssize_t	event_idx;
-}			t_move_event;
+	t_move_action	*action;
+	void			*arg;
+	ssize_t			event_idx;
+}					t_move_event;
 
 ssize_t	add_func_move_hook(t_mlx *mlx_data,
-			void (*action)(void *, t_mlx *), void *arg);
+			t_move_action *action, void *arg);
 
 int		remove_move_hook(t_mlx *mlx_data, ssize_t event_idx);
 

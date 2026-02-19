@@ -13,7 +13,7 @@
 #include "mlx_wrapper.h"
 
 ssize_t	add_func_button_hook(t_mlx *mlx_data, t_mbuttons keycode,
-		void (*action)(t_vec2i, t_maction, void *, t_mlx *), void *arg)
+		t_button_action	*action, void *arg)
 {
 	static ssize_t			event_idx = 0;
 	const t_button_event	button_event = (t_button_event)

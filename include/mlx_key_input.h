@@ -23,7 +23,7 @@ typedef struct s_key_event
 	bool		toggle;
 	void		(*action)(void *, t_mlx *);
 	void		*arg;
-	bool		*status;//program defined
+	bool		*status;
 	ssize_t		event_idx;
 }				t_key_event;
 
