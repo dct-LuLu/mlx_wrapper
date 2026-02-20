@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 08:52:02 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/02/18 09:08:14 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/20 16:07:43 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	remove_key_hook(t_mlx *mlx_data, ssize_t event_idx)
 	size_t		i;
 
 	i = 0;
+	if (!mlx_data || !mlx_data->key_input.key_events)
+		return (0);
 	while (i < mlx_data->key_input.key_events->num_elements)
 	{
 		key_event = get_vector_value(mlx_data->key_input.key_events, i);

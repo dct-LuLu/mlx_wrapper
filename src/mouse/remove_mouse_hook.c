@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 08:54:10 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/02/19 15:57:42 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/20 16:07:26 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	remove_button_hook(t_mlx *mlx_data, ssize_t event_idx)
 	size_t			i;
 
 	i = 0;
+	if (!mlx_data || !mlx_data->mouse_input.button_events)
+		return (0);
 	while (i < mlx_data->mouse_input.button_events->num_elements)
 	{
 		button_event = get_vector_value(mlx_data->mouse_input.button_events, i);
@@ -37,6 +39,8 @@ int	remove_move_hook(t_mlx *mlx_data, ssize_t event_idx)
 	size_t			i;
 
 	i = 0;
+	if (!mlx_data || !mlx_data->mouse_input.move_events)
+		return (0);
 	while (i < mlx_data->mouse_input.move_events->num_elements)
 	{
 		move_event = get_vector_value(mlx_data->mouse_input.move_events, i);
