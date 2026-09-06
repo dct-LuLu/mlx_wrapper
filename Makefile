@@ -6,7 +6,7 @@
 #    By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/11 10:16:04 by jaubry--          #+#    #+#              #
-#    Updated: 2026/02/19 15:53:52 by jaubry--         ###   ########.fr        #
+#    Updated: 2026/09/06 21:44:32 by jaubry--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -142,11 +142,6 @@ $(MLX):
 	@$(MAKE) -s -C $(MLXDIR) CC="$(MLX_GCC) $(if $(filter 1,$(FAST)),$(OFLAGS))" $(MUTE)
 	$(call mlx-finish-msg)
 
-buildmsg:
-ifneq ($(shell [ -f $(NAME) ] && echo exists),exists)
-	$(call lib-build-msg)
-endif
-
 help:
 	@echo "Available targets:"
 	@echo -e "\tall, $(NAME)\t\t: Build the library"
@@ -171,9 +166,3 @@ fclean:
 	@rm -rf $(OBJDIR) $(DEPDIR)
 	$(call rm-lib-msg)
 	@rm -f $(NAME)
-
--include $(DEPS)
-
-.PHONY: all clean fclean
-.PHONY: help buildmsg
-.PHONY: re refast redebug reinspect reprofile resan-mem resan-leak resan-ub
